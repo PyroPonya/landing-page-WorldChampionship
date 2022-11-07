@@ -2,21 +2,60 @@
   <div class="form">
     <div class="content">
       <div class="form__title">Welcome</div>
-      <input
-        v-model="dataBlob.mail"
-        class="form__mail form__input"
-        placeholder="E-mail"
-      />
-      <div class="pass-container">
+      <div :class="errorMail ? 'form__error-mail' : ''" class="mail-container">
+        <input
+          v-model="dataBlob.mail"
+          :class="errorMail ? 'form__input-error' : ''"
+          class="form__mail form__input"
+          placeholder="E-mail"
+        />
+      </div>
+      <div
+        :class="errorPassword ? 'form__error-password' : ''"
+        class="pass-container"
+      >
         <input
           v-model="dataBlob.password"
+          :class="errorPassword ? 'form__input-error' : ''"
           class="form__password form__input"
           placeholder="Password"
         />
         <div class="form__password-toggle"></div>
       </div>
-      <div class="form__currency form__input"></div>
-      <div class="form__country form__input"></div>
+      <div
+        @click="showCurrency = !showCurrency"
+        :style="showCurrency ? '--rotate: 45deg' : '--rotate: -135deg'"
+        class="form__currency form__input form__input-select"
+      >
+        {{ !dataBlob.currency ? 'Currency' : dataBlob.currency }}
+        <div v-if="showCurrency" class="form__currency-dropdown dropdown">
+          <div
+            v-for="(el, id) in currencyArr"
+            :key="id"
+            class="dropdown__element"
+            @click="dataBlob.currency = el"
+          >
+            {{ el }}
+          </div>
+        </div>
+      </div>
+      <div
+        @click="showCountry = !showCountry"
+        :style="showCountry ? '--rotate: 45deg' : '--rotate: -135deg'"
+        class="form__country form__input form__input-select"
+      >
+        {{ !dataBlob.country ? 'Country' : dataBlob.country }}
+        <div v-if="showCountry" class="form__country-dropdown dropdown">
+          <div
+            v-for="(el, id) in countryList"
+            :key="id"
+            class="dropdown__element"
+            @click="dataBlob.country = el"
+          >
+            {{ el }}
+          </div>
+        </div>
+      </div>
       <div class="form__text conditions">
         <div
           class="checkbox"
@@ -48,7 +87,9 @@
         <div class="login__link link">Sign&nbsp;In</div>
       </div>
     </div>
-    <div class="form__partners"></div>
+    <div class="form__partners">
+      <div v-for="el in 10" :key="el" class="form__partners-element"></div>
+    </div>
   </div>
 </template>
 
@@ -58,14 +99,247 @@ export default {
   setup() {
     const termsChecked = ref(false);
     const promosChecked = ref(false);
+    const showCurrency = ref(false);
+    const errorMail = ref(false);
+    const errorPassword = ref(false);
+    const showCountry = ref(false);
+    const currencyArr = [
+      'EUR',
+      'NZD',
+      'AUD',
+      'USD',
+      'CAD',
+      'NOK',
+      'INR',
+      'BTC',
+      'BCH',
+      'DOG',
+      'ETH',
+      'LTC',
+      'USDT',
+      'XRP',
+      'TRX',
+      'BNB',
+    ];
+    const countryList = [
+      'Afghanistan',
+      'Albania',
+      'Algeria',
+      'Andorra',
+      'Angola',
+      'Anguilla',
+      'Antigua & Barbuda',
+      'Argentina',
+      'Armenia',
+      'Aruba',
+      'Australia',
+      'Austria',
+      'Azerbaijan',
+      'Bahamas',
+      'Bahrain',
+      'Bangladesh',
+      'Barbados',
+      'Belarus',
+      'Belgium',
+      'Belize',
+      'Benin',
+      'Bermuda',
+      'Bhutan',
+      'Bolivia',
+      'Bosnia & Herzegovina',
+      'Botswana',
+      'Brazil',
+      'British Virgin Islands',
+      'Brunei',
+      'Bulgaria',
+      'Burkina Faso',
+      'Burundi',
+      'Cambodia',
+      'Cameroon',
+      'Cape Verde',
+      'Cayman Islands',
+      'Chad',
+      'Chile',
+      'China',
+      'Colombia',
+      'Congo',
+      'Cook Islands',
+      'Costa Rica',
+      'Cote D Ivoire',
+      'Croatia',
+      'Cruise Ship',
+      'Cuba',
+      'Cyprus',
+      'Czech Republic',
+      'Denmark',
+      'Djibouti',
+      'Dominica',
+      'Dominican Republic',
+      'Ecuador',
+      'Egypt',
+      'El Salvador',
+      'Equatorial Guinea',
+      'Estonia',
+      'Ethiopia',
+      'Falkland Islands',
+      'Faroe Islands',
+      'Fiji',
+      'Finland',
+      'France',
+      'French Polynesia',
+      'French West Indies',
+      'Gabon',
+      'Gambia',
+      'Georgia',
+      'Germany',
+      'Ghana',
+      'Gibraltar',
+      'Greece',
+      'Greenland',
+      'Grenada',
+      'Guam',
+      'Guatemala',
+      'Guernsey',
+      'Guinea',
+      'Guinea Bissau',
+      'Guyana',
+      'Haiti',
+      'Honduras',
+      'Hong Kong',
+      'Hungary',
+      'Iceland',
+      'India',
+      'Indonesia',
+      'Iran',
+      'Iraq',
+      'Ireland',
+      'Isle of Man',
+      'Israel',
+      'Italy',
+      'Jamaica',
+      'Japan',
+      'Jersey',
+      'Jordan',
+      'Kazakhstan',
+      'Kenya',
+      'Kuwait',
+      'Kyrgyz Republic',
+      'Laos',
+      'Latvia',
+      'Lebanon',
+      'Lesotho',
+      'Liberia',
+      'Libya',
+      'Liechtenstein',
+      'Lithuania',
+      'Luxembourg',
+      'Macau',
+      'Macedonia',
+      'Madagascar',
+      'Malawi',
+      'Malaysia',
+      'Maldives',
+      'Mali',
+      'Malta',
+      'Mauritania',
+      'Mauritius',
+      'Mexico',
+      'Moldova',
+      'Monaco',
+      'Mongolia',
+      'Montenegro',
+      'Montserrat',
+      'Morocco',
+      'Mozambique',
+      'Namibia',
+      'Nepal',
+      'Netherlands',
+      'Netherlands Antilles',
+      'New Caledonia',
+      'New Zealand',
+      'Nicaragua',
+      'Niger',
+      'Nigeria',
+      'Norway',
+      'Oman',
+      'Pakistan',
+      'Palestine',
+      'Panama',
+      'Papua New Guinea',
+      'Paraguay',
+      'Peru',
+      'Philippines',
+      'Poland',
+      'Portugal',
+      'Puerto Rico',
+      'Qatar',
+      'Reunion',
+      'Romania',
+      'Russia',
+      'Rwanda',
+      'Saint Pierre & Miquelon',
+      'Samoa',
+      'San Marino',
+      'Satellite',
+      'Saudi Arabia',
+      'Senegal',
+      'Serbia',
+      'Seychelles',
+      'Sierra Leone',
+      'Singapore',
+      'Slovakia',
+      'Slovenia',
+      'South Africa',
+      'South Korea',
+      'Spain',
+      'Sri Lanka',
+      'St Kitts & Nevis',
+      'St Lucia',
+      'St Vincent',
+      'St. Lucia',
+      'Sudan',
+      'Suriname',
+      'Swaziland',
+      'Sweden',
+      'Switzerland',
+      'Syria',
+      'Taiwan',
+      'Tajikistan',
+      'Tanzania',
+      'Thailand',
+      "Timor L'Este",
+      'Togo',
+      'Tonga',
+      'Trinidad & Tobago',
+      'Tunisia',
+      'Turkey',
+      'Turkmenistan',
+      'Turks & Caicos',
+      'Uganda',
+      'Ukraine',
+      'United Arab Emirates',
+      'United Kingdom',
+      'Uruguay',
+      'Uzbekistan',
+      'Venezuela',
+      'Vietnam',
+      'Virgin Islands (US)',
+      'Yemen',
+      'Zambia',
+      'Zimbabwe',
+    ];
+
+    const countryArr = [];
     const dataBlob = ref({
       mail: '',
       password: '',
-      CAD: '',
+      currency: '',
       country: '',
       termsChecked: false,
       promosChecked: false,
     });
+    // ////////////////////////////
+    // @TODO: ERRORS
     watchEffect(() => {
       console.log(dataBlob.value);
       console.log('mail: ', dataBlob.value.mail);
@@ -73,16 +347,26 @@ export default {
       console.log('terms: ', dataBlob.value.termsChecked);
       console.log('promos: ', dataBlob.value.promosChecked);
     });
+    // ///////////////////////////
     return {
       termsChecked,
       promosChecked,
       dataBlob,
+      currencyArr,
+      countryArr,
+      showCountry,
+      showCurrency,
+      errorMail,
+      errorPassword,
+      countryList,
     };
   },
 };
 </script>
 
 <style lang="sass" scoped>
+:root
+  --rotate: -135deg //45deg
 .link
   background: linear-gradient(256.33deg, #FFB639 18.19%, #E49100 80.14%)
   background-clip: text
@@ -96,6 +380,36 @@ export default {
     text-fill-color: transparent
     -webkit-background-clip: text
     -webkit-text-fill-color: transparent
+.dropdown
+  position: relative
+  top: 100% + 5
+  left: 0
+  display: grid
+  grid-template: 1fr 1fr 1fr 1fr / 1fr 1fr 1fr 1fr
+  padding: 6px 12px
+  width: 300px
+  background-color: #0E1219
+  border-bottom-left-radius: 12px
+  border-bottom-right-radius: 12px
+  z-index: 111
+  // prevent selection start
+  user-select: none
+  -webkit-user-select: none
+  -moz-user-select: none
+  -khtml-user-select: none
+  -ms-user-select: none
+  // prevent selection end
+  &__element
+    // margin: 6px 10px
+    display: flex
+    align-items: center
+    justify-content: center
+    height: 25px
+    width: 50px
+    &:hover
+      background: linear-gradient(256.33deg, #FFB639 18.19%, #E49100 80.14%)
+      border-radius: 6px
+      color: #1D232C
 .form
   background: #2B3446
   border-radius: 20px
@@ -104,6 +418,37 @@ export default {
   min-height: 550px
   display: flex
   flex-direction: column
+  &__error
+    &-mail::after
+      content: 'Email address must contain the "@" symbol'
+      text-transform: uppercase
+      height: 100%
+      width: 100%
+      font-family: 'Montserrat'
+      font-style: normal
+      font-weight: 600
+      font-size: 12px
+      line-height: 15px
+      display: flex
+      align-items: center
+      letter-spacing: 0.01em
+      color: #FF2525
+      margin: 5px
+    &-password::after
+      content: 'IS TOO SHORT (MINIMUM IS 8 CHARACTERS)'
+      text-transform: uppercase
+      height: 100%
+      width: 100%
+      font-family: 'Montserrat'
+      font-style: normal
+      font-weight: 600
+      font-size: 12px
+      line-height: 15px
+      display: flex
+      align-items: center
+      letter-spacing: 0.01em
+      color: #FF2525
+      margin: 5px
   .content
     padding: 25px
     padding-top: 0
@@ -121,6 +466,9 @@ export default {
   &__input
     background: #1C2330
     border-radius: 12px
+    display: flex
+    align-items: center
+    justify-content: flex-start
     font-family: 'Montserrat'
     font-style: normal
     font-weight: 600
@@ -138,6 +486,24 @@ export default {
     color: #FFFFFF
     &::placeholder
       color: #657083
+    &-select
+      position: relative
+      transition: all 3s ease-in-out
+      cursor: pointer
+      &::after
+        position: absolute
+        content: ''
+        width: 8px
+        height: 8px
+        border-top: 2px solid #657083
+        border-left: 2px solid #657083
+        right: 5%
+        top: 45%
+        transform: rotate(var(--rotate))
+        transition: all 0.3s ease-in-out
+    &-error
+      outline: 1px solid #E49100
+      border-radius: 12px
   &__mail
   .pass-container
     position: relative
@@ -146,15 +512,40 @@ export default {
       position: absolute
       height: 10px
       width: 15px
-      right: 20px
-      bottom: 50%
-      // background-color: #657083
+      right: 5%
+      top: 20px
       background-image: url('/src/assets/form/grey-eye.svg')
       cursor: pointer
+      &:hover
+        filter: invert(92%) sepia(200%) saturate(20%) hue-rotate(2000deg) brightness(89%) contrast(200%)
   &__currency
+    position: relative
     color: #FFFFFF
+    &-dropdown
+      position: absolute
   &__country
+    position: relative
     color: #FFFFFF
+    &-dropdown
+      position: absolute
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: flex-start
+      gap: 10px
+      max-height: 200px
+      overflow-y: scroll
+      .dropdown__element
+        // margin: 6px 10px
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: 15px
+        width: 100%
+        &:hover
+          background: linear-gradient(256.33deg, #FFB639 18.19%, #E49100 80.14%)
+          border-radius: 6px
+          color: #1D232C
   &__text
     display: flex
     flex-direction: row
@@ -229,6 +620,9 @@ export default {
       text-fill-color: transparent
 
   &__login
+    display: flex
+    gap: 9px
+    justify-content: center
     .login__title
       font-family: 'Montserrat'
       font-style: normal
@@ -245,4 +639,54 @@ export default {
       line-height: 17px
       text-decoration: underline
   &__partners
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    flex-wrap: wrap
+    gap: 9px
+    &-element
+      // margin: 10px 8px
+      &:nth-of-type(1)
+        height: 24px
+        width: 30px
+        background: center / contain no-repeat url("/src/assets/form/maestro.svg")
+      &:nth-of-type(2)
+        height: 24px
+        width: 31px
+        background: center / contain no-repeat url("/src/assets/form/mastercard.svg")
+      &:nth-of-type(3)
+        height: 24px
+        width: 55px
+        background: center / contain no-repeat url("/src/assets/form/visa.svg")
+      &:nth-of-type(4)
+        height: 24px
+        width: 47px
+        background: center / contain no-repeat url("/src/assets/form/interac-transfer.svg")
+      &:nth-of-type(5)
+        height: 24px
+        width: 69px
+        background: center / contain no-repeat url("/src/assets/form/neosurf.svg")
+        // filtering from pink to gray
+        filter: invert(92%) sepia(200%) saturate(20%) hue-rotate(2000deg) brightness(89%) contrast(200%)
+      &:nth-of-type(6)
+        height: 24px
+        width: 61px
+        background: center / contain no-repeat url("/src/assets/form/flexepin.svg")
+      &:nth-of-type(7)
+        height: 24px
+        width: 69px
+        background: center / contain no-repeat url("/src/assets/form/mifinity.svg")
+      &:nth-of-type(8)
+        height: 24px
+        width: 54px
+        background: center / contain no-repeat url("/src/assets/form/bank-transfer.svg")
+      &:nth-of-type(9)
+        height: 24px
+        width: 69px
+        background: center / contain no-repeat url("/src/assets/form/payz.svg")
+      &:nth-of-type(10)
+        height: 24px
+        width: 38px
+        background: center / contain no-repeat url("/src/assets/form/iDebit.svg")
 </style>
