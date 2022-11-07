@@ -89,6 +89,7 @@ export default {
   text-fill-color: transparent
   -webkit-background-clip: text
   -webkit-text-fill-color: transparent
+  cursor: pointer
 .form
   background: #2B3446
   border-radius: 20px
