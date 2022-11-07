@@ -45,7 +45,7 @@
       </div>
       <div class="form__login">
         <div class="login__title">Already have an account?</div>
-        <div class="login__link link">Sign In</div>
+        <div class="login__link link">Sign&nbsp;In</div>
       </div>
     </div>
     <div class="form__partners"></div>
@@ -90,6 +90,12 @@ export default {
   -webkit-background-clip: text
   -webkit-text-fill-color: transparent
   cursor: pointer
+  &:hover
+    background: linear-gradient(256.33deg, #FFD644 18.19%, #FFBB0E 80.14%)
+    background-clip: text
+    text-fill-color: transparent
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
 .form
   background: #2B3446
   border-radius: 20px
@@ -198,7 +204,7 @@ export default {
     align-items: center
     min-width: 300px
     min-height: 50px
-    margin: 22px 0
+    margin: 14px 0 7px 0
     gap: 10px
     background: linear-gradient(256.33deg, #FFB639 18.19%, #E49100 80.14%)
     color: #13171E
