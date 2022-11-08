@@ -71,10 +71,8 @@ export default {
 
 <style lang="sass" scoped>
 $rotate: 45deg
-$path: '/src/assets/header/EN.svg'
 :root
   --rotate: 45deg
-  --path: '/src/assets/header/EN.svg'
 .container__header
   position: fixed
   top: 0px
@@ -159,7 +157,6 @@ $path: '/src/assets/header/EN.svg'
     cursor: pointer
     transition: all 0.3s ease-in-out
     .lang__logo
-      background: url($path)
       background-position: center
       background-repeat: no-repeat
       height: 30px
