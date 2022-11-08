@@ -45,18 +45,32 @@
 
 <script>
 import { ref } from 'vue';
+import CA_svg from '/src/assets/header/CA.svg';
+import EN_svg from '/src/assets/header/EN.svg';
+import AU_svg from '/src/assets/header/AU.svg';
+import NZ_svg from '/src/assets/header/NZ.svg';
+import DE_svg from '/src/assets/header/DE.svg';
+import FR_CA_svg from '/src/assets/header/FR_CA.svg';
 export default {
   setup() {
     const selectorOpen = ref(false);
     const selectedLang = ref('EN');
     const avLang = {
-      CA: './src/assets/header/CA.svg',
-      EN: './src/assets/header/EN.svg',
-      AU: './src/assets/header/AU.svg',
-      NZ: './src/assets/header/NZ.svg',
-      DE: './src/assets/header/DE.svg',
-      FR_CA: './src/assets/header/FR_CA.svg',
+      CA: CA_svg,
+      EN: EN_svg,
+      AU: AU_svg,
+      NZ: NZ_svg,
+      DE: DE_svg,
+      FR_CA: FR_CA_svg,
     };
+    // const avLang = {
+    //   CA: './src/assets/header/CA.svg',
+    //   EN: './src/assets/header/EN.svg',
+    //   AU: './src/assets/header/AU.svg',
+    //   NZ: './src/assets/header/NZ.svg',
+    //   DE: './src/assets/header/DE.svg',
+    //   FR_CA: './src/assets/header/FR_CA.svg',
+    // };
     console.log(avLang[selectedLang.value]);
     console.log(avLang);
     console.log(selectedLang.value);
