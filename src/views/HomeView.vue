@@ -11,7 +11,6 @@
 <script setup>
 import RegisterFormComponent from '../components/RegisterFormComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
-// const emits = defineEmits(['regData']);
 const doSmth = (proxy) => {
   console.log(proxy.value);
 };
