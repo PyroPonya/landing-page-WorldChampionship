@@ -1,11 +1,17 @@
 <template>
   <div class="container">
-    <register-form-component></register-form-component>
+    <register-form-component
+      @regData="(payload) => doSmth(payload)"
+    ></register-form-component>
   </div>
 </template>
 
 <script setup>
 import RegisterFormComponent from '../components/RegisterFormComponent.vue';
+// const emits = defineEmits(['regData']);
+const doSmth = (el) => {
+  console.log(el);
+};
 </script>
 
 <style lang="sass" scoped>

@@ -16,14 +16,24 @@
       >
         <input
           v-model="dataBlob.password"
-          :class="errorPassword ? 'form__input-error' : ''"
+          :type="
+            displayPassword
+              ? (passwordFieldType = 'text')
+              : (passwordFieldType = 'password')
+          "
           class="form__password form__input"
           placeholder="Password"
         />
-        <div class="form__password-toggle"></div>
+        <div
+          @click="displayPassword = !displayPassword"
+          class="form__password-toggle"
+        ></div>
       </div>
       <div
-        @click="showCurrency = !showCurrency"
+        @click="
+          showCurrency = !showCurrency;
+          showCountry = false;
+        "
         :style="showCurrency ? '--rotate: 45deg' : '--rotate: -135deg'"
         class="form__currency form__input form__input-select"
       >
@@ -40,7 +50,10 @@
         </div>
       </div>
       <div
-        @click="showCountry = !showCountry"
+        @click="
+          showCountry = !showCountry;
+          showCurrency = false;
+        "
         :style="showCountry ? '--rotate: 45deg' : '--rotate: -135deg'"
         class="form__country form__input form__input-select"
       >
@@ -77,11 +90,16 @@
         ></div>
         <div class="terms__text">Recive promos</div>
       </div>
-      <div class="btn-container">
+      <div @click="pushData" class="btn-container">
         <div class="form__btn">
           <div class="btn__text">SIGN&nbsp;UP</div>
         </div>
       </div>
+      <!-- <div v-else class="btn-container">
+        <div class="form__btn-error">
+          <div class="btn__text">SIGN&nbsp;UP</div>
+        </div>
+      </div> -->
       <div class="form__login">
         <div class="login__title">Already have an account?</div>
         <div class="login__link link">Sign&nbsp;In</div>
@@ -94,15 +112,17 @@
 </template>
 
 <script>
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 export default {
-  setup() {
+  setup(props, { emit }) {
     const termsChecked = ref(false);
     const promosChecked = ref(false);
     const showCurrency = ref(false);
     const errorMail = ref(false);
     const errorPassword = ref(false);
+    const displayPassword = ref(true);
     const showCountry = ref(false);
+    const formIsValid = ref(false);
     const currencyArr = [
       'EUR',
       'NZD',
@@ -328,7 +348,6 @@ export default {
       'Zambia',
       'Zimbabwe',
     ];
-
     const countryArr = [];
     const dataBlob = ref({
       mail: '',
@@ -338,15 +357,57 @@ export default {
       termsChecked: false,
       promosChecked: false,
     });
+    // validate data
+    const validateData = () => {
+      let errorCounter = 0;
+      // mail
+      if (!dataBlob.value.mail.slice('').includes('@')) {
+        errorMail.value = true;
+        // return 'error';
+        errorCounter++;
+      } else {
+        errorMail.value = false;
+      }
+      // pass
+      if (dataBlob.value.password.length < 8) {
+        errorPassword.value = true;
+        // return 'error';
+        errorCounter++;
+      } else {
+        errorPassword.value = false;
+      }
+      if (!dataBlob.value.currency || !dataBlob.value.country) {
+        errorCounter++;
+      }
+      if (!dataBlob.value.termsChecked) {
+        errorCounter++;
+      }
+      if (errorCounter > 0) {
+        formIsValid.value = false;
+        return false;
+      } else {
+        formIsValid.value = true;
+        return true;
+      }
+    };
+    // emits registration data
+    const pushData = () => {
+      if (validateData()) {
+        emit('regData', dataBlob);
+      } else {
+        return false;
+      }
+    };
     // ////////////////////////////
-    // @TODO: ERRORS
-    watchEffect(() => {
-      console.log(dataBlob.value);
-      console.log('mail: ', dataBlob.value.mail);
-      console.log('pass: ', dataBlob.value.password);
-      console.log('terms: ', dataBlob.value.termsChecked);
-      console.log('promos: ', dataBlob.value.promosChecked);
-    });
+    // watchEffect(() => {
+    //   // console.log(dataBlob.value);
+    //   console.log('mail: ', dataBlob.value.mail);
+    //   const valid = validateData();
+    //   console.log(valid);
+    //   // console.log('pass: ', dataBlob.value.password);
+    //   // console.log('terms: ', dataBlob.value.termsChecked);
+    //   // console.log('promos: ', dataBlob.value.promosChecked);
+    // });
     // ///////////////////////////
     return {
       termsChecked,
@@ -358,7 +419,11 @@ export default {
       showCurrency,
       errorMail,
       errorPassword,
+      displayPassword,
       countryList,
+      formIsValid,
+      validateData,
+      pushData,
     };
   },
 };
@@ -602,6 +667,20 @@ export default {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25)
     border-radius: 12px
     cursor: pointer
+    &-error
+      display: flex
+      flex-direction: row
+      justify-content: center
+      align-items: center
+      min-width: 300px
+      min-height: 50px
+      margin: 14px 0 7px 0
+      gap: 10px
+      background-color: rgba(0, 0, 0, 0.25)
+      color: rgba(228, 145, 0, 0.6)
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25)
+      border-radius: 12px
+      cursor: not-allowed
     .btn__text
       font-family: 'Montserrat'
       font-style: normal
