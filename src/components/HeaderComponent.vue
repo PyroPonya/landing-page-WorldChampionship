@@ -15,19 +15,61 @@
       <div class="btn btn__login">SIGN&nbsp;IN</div>
       <div class="btn btn__register">SIGN&nbsp;UP</div>
     </div>
-    <div class="container__lang"></div>
+    <div
+      :style="selectorOpen ? '--rotate: -135deg' : '--rotate: 45deg'"
+      @click="selectorOpen = !selectorOpen"
+      class="container__lang"
+    >
+      <div
+        :style="`background: url(${avLang[selectedLang]})`"
+        class="lang__logo"
+      ></div>
+      <div class="lang__title">{{ selectedLang }}</div>
+      <div v-if="selectorOpen" class="lang__dropdown">
+        <div v-for="(el, id) in avLang" :key="id" class="dropdown__el">
+          <div
+            :style="`background: url(${avLang[id]})`"
+            class="lang__logo"
+          ></div>
+          <div class="lang__title">{{ id }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue';
 export default {
   setup() {
-    return {};
+    const selectorOpen = ref(false);
+    const avLang = {
+      EN: '/src/assets/header/EN.svg',
+      CA: '/src/assets/header/CA.svg',
+      AU: '/src/assets/header/AU.svg',
+      NZ: '/src/assets/header/NZ.svg',
+      DE: '/src/assets/header/DE.svg',
+      FR_CA: '/src/assets/header/FR_CA.svg',
+    };
+    const selectedLang = ref('EN');
+    console.log(avLang[selectedLang.value]);
+    console.log(avLang);
+    console.log(selectedLang.value);
+    return {
+      selectorOpen,
+      avLang,
+      selectedLang,
+    };
   },
 };
 </script>
 
 <style lang="sass" scoped>
+$rotate: 45deg
+$path: '/src/assets/header/EN.svg'
+:root
+  --rotate: 45deg
+  --path: '/src/assets/header/EN.svg'
 .container__header
   position: fixed
   top: 0px
@@ -39,8 +81,6 @@ export default {
   gap: 5%
   width: 100%
   padding: 15px 5%
-  //
-  background-color: gray
   .container__logo
     display: flex
     flex-direction: row
@@ -51,6 +91,7 @@ export default {
     background: url('/src/assets/header/logo.svg')
     background-position: center
     background-repeat: no-repeat
+    cursor: pointer
   .container__nav
     display: flex
     flex-direction: row
@@ -97,9 +138,66 @@ export default {
       letter-spacing: 0.01em
       color: #1D232C
   .container__lang
+    position: relative
     display: flex
     flex-direction: row
+    justify-content: center
+    align-items: center
     gap: 15px
-    //
-    background-color: green
+    padding: 7px 17px 7px 9px
+    min-width: 130px
+    height: 50px
+    background: rgba(0, 0, 0, 0.6)
+    border-radius: 10px
+    cursor: pointer
+    transition: all 0.3s ease-in-out
+    .lang__logo
+      background: url(var(--path))
+      background-position: center
+      background-repeat: no-repeat
+      height: 30px
+      width: 50px
+    .lang__title
+      font-family: 'Montserrat'
+      font-style: normal
+      font-weight: 700
+      font-size: 14px
+      line-height: 114.7%
+      color: #FFFFFF
+      text-align: center
+    &::after
+      content: 'xxx'
+      position: absolute
+      height: 10px
+      width: 10px
+      border-right: 2px solid #ffffff
+      border-bottom: 2px solid #ffffff
+      right: 5%
+      bottom: 45%
+      transform: rotate(var(--rotate))
+      transition: all 0.3s ease-in-out
+    .lang__dropdown
+      z-index: 111
+      position: absolute
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      justify-content: center
+      padding: 14px 8px
+      min-width: 130px
+      top: 100%
+      background: white
+      border-radius: 10px
+      .dropdown__el
+        cursor: pointer
+        display: flex
+        flex-direction: row
+        justify-content: flex-start
+        align-items: center
+        gap: 15px
+        min-width: 130px
+        height: 50px
+        width: 100%
+        background: rgba(0, 0, 0, 0.6)
+        color: #FFFFFF
 </style>
