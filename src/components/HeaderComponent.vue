@@ -50,12 +50,12 @@ export default {
     const selectorOpen = ref(false);
     const selectedLang = ref('EN');
     const avLang = {
-      EN: '/src/assets/header/EN.svg',
-      CA: '/src/assets/header/CA.svg',
-      AU: '/src/assets/header/AU.svg',
-      NZ: '/src/assets/header/NZ.svg',
-      DE: '/src/assets/header/DE.svg',
-      FR_CA: '/src/assets/header/FR_CA.svg',
+      CA: './src/assets/header/CA.svg',
+      EN: './src/assets/header/EN.svg',
+      AU: './src/assets/header/AU.svg',
+      NZ: './src/assets/header/NZ.svg',
+      DE: './src/assets/header/DE.svg',
+      FR_CA: './src/assets/header/FR_CA.svg',
     };
     console.log(avLang[selectedLang.value]);
     console.log(avLang);
