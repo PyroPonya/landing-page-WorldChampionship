@@ -19,6 +19,7 @@ const doSmth = (proxy) => {
 
 <style lang="sass" scoped>
 .container
+  position: relative
   min-height: 100vh
   width: 100%
   display: flex
@@ -27,7 +28,8 @@ const doSmth = (proxy) => {
   justify-content: center
   background-color: black
   .register
-    position: sticky
-    top: 5%
+    position: absolute
+    top: 15%
     right: 10%
+    z-index: 5
 </style>

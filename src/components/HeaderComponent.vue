@@ -26,7 +26,12 @@
       ></div>
       <div class="lang__title">{{ selectedLang }}</div>
       <div v-if="selectorOpen" class="lang__dropdown">
-        <div v-for="(el, id) in avLang" :key="id" class="dropdown__el">
+        <div
+          @click="selectedLang = id"
+          v-for="(el, id) in avLang"
+          :key="id"
+          class="dropdown__el"
+        >
           <div
             :style="`background: url(${avLang[id]})`"
             class="lang__logo"
@@ -43,6 +48,7 @@ import { ref } from 'vue';
 export default {
   setup() {
     const selectorOpen = ref(false);
+    const selectedLang = ref('EN');
     const avLang = {
       EN: '/src/assets/header/EN.svg',
       CA: '/src/assets/header/CA.svg',
@@ -51,7 +57,6 @@ export default {
       DE: '/src/assets/header/DE.svg',
       FR_CA: '/src/assets/header/FR_CA.svg',
     };
-    const selectedLang = ref('EN');
     console.log(avLang[selectedLang.value]);
     console.log(avLang);
     console.log(selectedLang.value);
@@ -80,7 +85,9 @@ $path: '/src/assets/header/EN.svg'
   justify-content: center
   gap: 5%
   width: 100%
-  padding: 15px 5%
+  height: 60px
+  padding: 0px 5%
+  margin-top: 40px
   .container__logo
     display: flex
     flex-direction: row
@@ -144,7 +151,7 @@ $path: '/src/assets/header/EN.svg'
     justify-content: center
     align-items: center
     gap: 15px
-    padding: 7px 17px 7px 9px
+    padding: 10px 8px
     min-width: 130px
     height: 50px
     background: rgba(0, 0, 0, 0.6)
@@ -183,11 +190,14 @@ $path: '/src/assets/header/EN.svg'
       flex-direction: column
       align-items: flex-start
       justify-content: center
+      gap: 10px
       padding: 14px 8px
       min-width: 130px
+      max-width: 130px
       top: 100%
-      background: white
+      left: 10%
       border-radius: 10px
+      background: rgba(0, 0, 0, 0.6)
       .dropdown__el
         cursor: pointer
         display: flex
@@ -196,8 +206,8 @@ $path: '/src/assets/header/EN.svg'
         align-items: center
         gap: 15px
         min-width: 130px
-        height: 50px
         width: 100%
+        height: 50px
         background: rgba(0, 0, 0, 0.6)
         color: #FFFFFF
 </style>
