@@ -22,7 +22,6 @@ const doSmth = (proxy) => {
   min-height: 100vh
   width: 100%
   display: flex
-  // place-items: center
   align-items: center
   justify-content: center
   background-color: black
