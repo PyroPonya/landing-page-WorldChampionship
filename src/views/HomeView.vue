@@ -9,8 +9,8 @@
 <script setup>
 import RegisterFormComponent from '../components/RegisterFormComponent.vue';
 // const emits = defineEmits(['regData']);
-const doSmth = (el) => {
-  console.log(el);
+const doSmth = (proxy) => {
+  console.log(proxy.value);
 };
 </script>
 

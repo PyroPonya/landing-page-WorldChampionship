@@ -394,6 +394,14 @@ export default {
     const pushData = () => {
       if (validateData()) {
         emit('regData', dataBlob);
+        dataBlob.value = {
+          mail: '',
+          password: '',
+          currency: '',
+          country: '',
+          termsChecked: false,
+          promosChecked: false,
+        };
       } else {
         return false;
       }
