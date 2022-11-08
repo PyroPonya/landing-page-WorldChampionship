@@ -26,6 +26,8 @@ const doSmth = (proxy) => {
   align-items: center
   justify-content: center
   background-color: black
+  .header
+    z-index: 6
   .register
     position: absolute
     top: 15%

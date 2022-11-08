@@ -159,7 +159,7 @@ $path: '/src/assets/header/EN.svg'
     cursor: pointer
     transition: all 0.3s ease-in-out
     .lang__logo
-      background: url(var(--path))
+      background: url($path)
       background-position: center
       background-repeat: no-repeat
       height: 30px
@@ -184,7 +184,7 @@ $path: '/src/assets/header/EN.svg'
       transform: rotate(var(--rotate))
       transition: all 0.3s ease-in-out
     .lang__dropdown
-      z-index: 111
+      z-index: 122
       position: absolute
       display: flex
       flex-direction: column
