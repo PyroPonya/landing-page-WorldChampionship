@@ -34,9 +34,9 @@
           </div>
           <div class="content__title">RELOAD YOUE ACCOUNT</div>
           <div class="content__text">GET 50 FREE SPINS</div>
+          <div class="content__title">VIP BONUS 110%</div>
+          <div class="content__text">VIP UP TO 1500€</div>
         </div>
-        <div class="content__title">VIP BONUS 110%</div>
-        <div class="content__text">VIP UP TO 1500€</div>
       </div> </swiper-slide
     ><swiper-slide
       ><div class="slide slider__three">
@@ -139,8 +139,6 @@ export default {
     };
     const onSlideChange = (slideChange) => {
       activeControl.value = slideChange.activeIndex;
-      console.log('slideChange.activeIndex: ', slideChange.activeIndex);
-      console.log('activeControl.value: ', activeControl.value);
     };
     return {
       modules: [Autoplay, Pagination, Navigation, Thumbs],
