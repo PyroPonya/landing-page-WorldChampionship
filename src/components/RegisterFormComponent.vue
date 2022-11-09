@@ -393,7 +393,7 @@ export default {
     // emits registration data
     const pushData = () => {
       if (validateData()) {
-        emit('regData', dataBlob);
+        emit('regData', dataBlob.value);
         dataBlob.value = {
           mail: '',
           password: '',

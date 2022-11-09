@@ -12,8 +12,8 @@
       <div class="nav__element">VIP&nbsp;PROGRAM</div>
     </div>
     <div class="container__btn">
-      <div class="btn btn__login">SIGN&nbsp;IN</div>
-      <div class="btn btn__register">SIGN&nbsp;UP</div>
+      <div @click="requestLogin" class="btn btn__login">SIGN&nbsp;IN</div>
+      <div @click="requestRegister" class="btn btn__register">SIGN&nbsp;UP</div>
     </div>
     <div
       :style="selectorOpen ? '--rotate: -135deg' : '--rotate: 45deg'"
@@ -27,7 +27,7 @@
       <div class="lang__title">{{ selectedLang }}</div>
       <div v-if="selectorOpen" class="lang__dropdown">
         <div
-          @click="selectedLang = id"
+          @click="setLanguage(id)"
           v-for="(el, id) in avLang"
           :key="id"
           class="dropdown__el"
@@ -52,7 +52,7 @@ import NZ_svg from '/src/assets/header/NZ.svg';
 import DE_svg from '/src/assets/header/DE.svg';
 import FR_CA_svg from '/src/assets/header/FR_CA.svg';
 export default {
-  setup() {
+  setup(props, { emit }) {
     const selectorOpen = ref(false);
     const selectedLang = ref('EN');
     const avLang = {
@@ -63,21 +63,23 @@ export default {
       DE: DE_svg,
       FR_CA: FR_CA_svg,
     };
-    // const avLang = {
-    //   CA: './src/assets/header/CA.svg',
-    //   EN: './src/assets/header/EN.svg',
-    //   AU: './src/assets/header/AU.svg',
-    //   NZ: './src/assets/header/NZ.svg',
-    //   DE: './src/assets/header/DE.svg',
-    //   FR_CA: './src/assets/header/FR_CA.svg',
-    // };
-    console.log(avLang[selectedLang.value]);
-    console.log(avLang);
-    console.log(selectedLang.value);
+    const setLanguage = (id) => {
+      selectedLang.value = id;
+      emit('setLang', selectedLang.value);
+    };
+    const requestLogin = () => {
+      emit('requestLogin');
+    };
+    const requestRegister = () => {
+      emit('requestRegister');
+    };
     return {
       selectorOpen,
       avLang,
       selectedLang,
+      setLanguage,
+      requestLogin,
+      requestRegister,
     };
   },
 };
@@ -126,6 +128,16 @@ $rotate: 45deg
       letter-spacing: 0.01em
       color: #B9C6D6
       cursor: pointer
+      &:hover
+        color: #F1F1F1
+      &:active
+        background: linear-gradient(256.33deg, #FFB639 18.19%, #E49100 80.14%)
+        -webkit-background-clip: text
+        -webkit-text-fill-color: transparent
+        background-clip: text
+        text-fill-color: transparent
+        border-bottom: 1px solid #E49100
+        margin-bottom: -1px
   .container__btn
     display: flex
     flex-direction: row
@@ -138,6 +150,13 @@ $rotate: 45deg
       justify-content: center
       align-items: center
       cursor: pointer
+      // prevent selection start
+      user-select: none
+      -webkit-user-select: none
+      -moz-user-select: none
+      -khtml-user-select: none
+      -ms-user-select: none
+      // prevent selection end
     .btn__login
       border: 1.5px solid #B9C6D6
       font-family: 'Montserrat'
@@ -147,6 +166,12 @@ $rotate: 45deg
       line-height: 22px
       letter-spacing: 0.01em
       color: #B9C6D6
+      &:hover
+        border: 1.5px solid #F1F1F1
+        color: #F1F1F1
+      &:active
+        border: 1.5px solid #E49100
+        color: #E49100
     .btn__register
       background: linear-gradient(256.33deg, #FFB639 18.19%, #E49100 80.14%)
       font-family: 'Montserrat'
@@ -156,6 +181,11 @@ $rotate: 45deg
       line-height: 22px
       letter-spacing: 0.01em
       color: #1D232C
+      &:hover
+        background: linear-gradient(256.33deg, #FFD644 18.19%, #FFBB0E 80.14%)
+      &:active
+        background: #13171E
+        color: #E49100
   .container__lang
     position: relative
     display: flex
