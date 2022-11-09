@@ -214,7 +214,7 @@ $rotate: 45deg
       color: #FFFFFF
       text-align: center
     &::after
-      content: 'xxx'
+      content: ''
       position: absolute
       height: 10px
       width: 10px

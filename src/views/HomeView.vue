@@ -6,6 +6,7 @@
       @requestLogin="toggleLoginForm"
       @requestRegister="registerFormDisplay = !registerFormDisplay"
     ></header-component>
+    <slider-component class="slider"></slider-component>
     <register-form-component
       class="register"
       :style="registerFormDisplay ? 'display: block' : 'display:none'"
@@ -19,6 +20,7 @@
 import { ref } from 'vue';
 import RegisterFormComponent from '../components/RegisterFormComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
+import SliderComponent from '../components/SliderComponent.vue';
 const registerFormDisplay = ref(true);
 const apiRegisterData = (proxyData) => {
   console.log(proxyData);
@@ -42,6 +44,8 @@ const toggleLoginForm = () => {
   background-color: black
   .header
     z-index: 6
+  .slider
+    height: 100vh
   .register
     position: absolute
     top: 15%
