@@ -251,13 +251,13 @@ export default {
   color: #ffffff;
 }
 .thumbs__icon__one {
-  background-image: url('/src/assets/slider/sportsbook_logo.svg');
+  background-image: url('/src/assets/slider/sportsbook_icon.png');
 }
 .thumbs__icon__two {
-  background-image: url('/src/assets/slider/casino_logo.svg');
+  background-image: url('/src/assets/slider/casino_icon.png');
 }
 .thumbs__icon__three {
-  background-image: url('/src/assets/slider/lifecasino_logo.svg');
+  background-image: url('/src/assets/slider/lifecasino_icon.png');
 }
 .thumbs__bottom {
   height: 50px;
