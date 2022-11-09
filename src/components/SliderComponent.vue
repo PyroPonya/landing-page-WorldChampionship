@@ -3,10 +3,11 @@
     :spaceBetween="0"
     :centeredSlides="true"
     :autoplay="{
-      delay: 500000,
+      delay: 5000,
       disableOnInteraction: false,
     }"
-    :loop="true"
+    :loop="false"
+    :rewind="true"
     :pagination="false"
     :navigation="false"
     :modules="modules"
@@ -51,19 +52,60 @@
   <swiper
     :modules="modules"
     :slidesPerView="3"
+    :loop="false"
     watch-slides-progress
     @swiper="setThumbsSwiper"
     class="thumbs_swiper"
   >
-    <swiper-slide
-      ><div class="thumb_swiper_slide thumbs_swiper_one">ONE</div></swiper-slide
+    <swiper-slide class="thumbs_slide_container"
+      ><div
+        :class="activeControl == '0' ? 'thumb_swiper_slide-active' : ''"
+        class="thumb_swiper_slide thumbs_swiper_one"
+      >
+        <div class="thumbs__head">
+          <div class="thumbs__head__icon thumbs__icon__one"></div>
+          <div class="thumbs__head__content">
+            <div class="thumbs__head__content__title">SPORTBOOK</div>
+            <div class="thumbs__head__content__text">
+              Enjoy worlds biggest sports events
+            </div>
+          </div>
+        </div>
+        <div class="thumbs__bottom">BET</div>
+      </div></swiper-slide
     >
-    <swiper-slide
-      ><div class="thumb_swiper_slide thumbs_swiper_two">TWO</div></swiper-slide
+    <swiper-slide class="thumbs_slide_container"
+      ><div
+        :class="activeControl == '1' ? 'thumb_swiper_slide-active' : ''"
+        class="thumb_swiper_slide thumbs_swiper_two"
+      >
+        <div class="thumbs__head">
+          <div class="thumbs__head__icon thumbs__icon__two"></div>
+          <div class="thumbs__head__content">
+            <div class="thumbs__head__content__title">CASINO</div>
+            <div class="thumbs__head__content__text">
+              Feel the excitement of the best games
+            </div>
+          </div>
+        </div>
+        <div class="thumbs__bottom">PLAY</div>
+      </div></swiper-slide
     >
-    <swiper-slide
-      ><div class="thumb_swiper_slide thumbs_swiper_three">
-        THREE
+    <swiper-slide class="thumbs_slide_container"
+      ><div
+        :class="activeControl == '2' ? 'thumb_swiper_slide-active' : ''"
+        class="thumb_swiper_slide thumbs_swiper_three"
+      >
+        <div class="thumbs__head">
+          <div class="thumbs__head__icon thumbs__icon__three"></div>
+          <div class="thumbs__head__content">
+            <div class="thumbs__head__content__title">LIVE&nbsp;CASINO</div>
+            <div class="thumbs__head__content__text">
+              Experience the real casino thrill
+            </div>
+          </div>
+        </div>
+        <div class="thumbs__bottom">PLAY</div>
       </div></swiper-slide
     >
   </swiper>
@@ -86,8 +128,9 @@ export default {
     Swiper,
     SwiperSlide,
   },
-  setup(props, { emit }) {
+  setup() {
     const thumbsSwiper = ref(null);
+    const activeControl = ref('0');
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     };
@@ -95,8 +138,9 @@ export default {
       console.log('onSwiper', swiper);
     };
     const onSlideChange = (slideChange) => {
-      console.log(slideChange);
-      emit('slideChange', slideChange.activeIndex);
+      activeControl.value = slideChange.activeIndex;
+      console.log('slideChange.activeIndex: ', slideChange.activeIndex);
+      console.log('activeControl.value: ', activeControl.value);
     };
     return {
       modules: [Autoplay, Pagination, Navigation, Thumbs],
@@ -104,6 +148,7 @@ export default {
       onSlideChange,
       thumbsSwiper,
       setThumbsSwiper,
+      activeControl,
     };
   },
 };
@@ -119,14 +164,22 @@ export default {
   /* display: none; */
   position: absolute;
   height: 200px;
-  width: 100%;
+  width: 85%;
   bottom: 40px;
+}
+
+.thumbs_slide_container {
+  background-color: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .thumb_swiper_slide {
   width: 450px;
   height: 180px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-position: center;
@@ -134,9 +187,21 @@ export default {
   background-repeat: no-repeat;
   background-color: black;
   cursor: pointer;
+  width: 459px;
+  height: 176px;
+  background: rgba(28, 35, 48, 0.63);
+  border-radius: 30px;
+}
+/* @TODO: highlight current slide */
+.thumb_swiper_slide-active {
+  outline: 1.5px solid #e49100;
+  background-color: #0e1117;
+}
+.thumb_swiper_slide-active .thumbs__head__content__title {
+  color: #e49100;
 }
 
-.thumbs_swiper_one {
+/* .thumbs_swiper_one {
   background-image: url('/src/assets/slider/slide_2.jpg');
 }
 
@@ -146,8 +211,79 @@ export default {
 
 .thumbs_swiper_three {
   background-image: url('/src/assets/slider/slide_1.jpg');
+} */
+.thumbs__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
 }
-
+.thumbs__head__icon {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 72px;
+  width: 72px;
+}
+.thumbs__head__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 5px;
+}
+.thumbs__head__content__title {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.thumbs__head__content__text {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+.thumbs__icon__one {
+  background-image: url('/src/assets/slider/sportsbook_logo.svg');
+}
+.thumbs__icon__two {
+  background-image: url('/src/assets/slider/casino_logo.svg');
+}
+.thumbs__icon__three {
+  background-image: url('/src/assets/slider/lifecasino_logo.svg');
+}
+.thumbs__bottom {
+  height: 50px;
+  width: 135px;
+  background: linear-gradient(256.33deg, #ffb639 18.19%, #e49100 80.14%);
+  border-radius: 14px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+  color: #1d232c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.thumbs__bottom:hover {
+  background: linear-gradient(256.33deg, #ffd644 18.19%, #ffbb0e 80.14%);
+}
+.thumbs__bottom:active {
+  background: #13171e;
+  color: #e49100;
+}
 .swiper-slide {
   text-align: center;
   font-size: 18px;

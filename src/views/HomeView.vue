@@ -6,7 +6,7 @@
       @requestLogin="toggleLoginForm"
       @requestRegister="registerFormDisplay = !registerFormDisplay"
     ></header-component>
-    <slider-component class="slider"></slider-component>
+    <slider-component></slider-component>
     <register-form-component
       class="register"
       :style="registerFormDisplay ? 'display: block' : 'display:none'"
@@ -44,8 +44,6 @@ const toggleLoginForm = () => {
   background-color: black
   .header
     z-index: 6
-  .slider
-    height: 100vh
   .register
     position: absolute
     top: 15%
@@ -61,6 +59,7 @@ const toggleLoginForm = () => {
     background-repeat: no-repeat
     background-position: center
     cursor: pointer
+    z-index: 144
     &:hover
       background: url('/src/assets/info_btn_hover.svg')
     &:active
