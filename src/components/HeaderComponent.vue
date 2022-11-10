@@ -1,13 +1,52 @@
 <template>
   <div class="container__header">
     <div class="container__logo">
+      <div
+        @click="mobileMenuOpen = !mobileMenuOpen"
+        :class="mobileMenuOpen ? 'container__nav-mobile-active' : ''"
+        class="container__nav-mobile"
+      >
+        <div v-if="mobileMenuOpen" class="mobile__background">
+          <div class="nav__mobile">
+            <div
+              @click.stop="requestRedirect('SPORTSBOOK')"
+              class="nav__mobile__element"
+            >
+              SPORTSBOOK
+            </div>
+            <div
+              @click.stop="requestRedirect('CASINO')"
+              class="nav__mobile__element"
+            >
+              CASINO
+            </div>
+            <div
+              @click.stop="requestRedirect('LIVE GAMES')"
+              class="nav__mobile__element"
+            >
+              LIVE&nbsp;GAMES
+            </div>
+            <div
+              @click.stop="requestRedirect('PROMOTIONS')"
+              class="nav__mobile__element"
+            >
+              PROMOTIONS
+            </div>
+            <div
+              @click.stop="requestRedirect('VIP PROGRAM')"
+              class="nav__mobile__element"
+            >
+              VIP&nbsp;PROGRAM
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="logo"></div>
-      <div class="logo__title"></div>
     </div>
     <div class="container__nav">
       <div class="nav__element">SPORTSBOOK</div>
       <div class="nav__element">CASINO</div>
-      <div class="nav__element">LIVE&nbsp;LAMES</div>
+      <div class="nav__element">LIVE&nbsp;GAMES</div>
       <div class="nav__element">PROMOTIONS</div>
       <div class="nav__element">VIP&nbsp;PROGRAM</div>
     </div>
@@ -55,6 +94,7 @@ export default {
   setup(props, { emit }) {
     const selectorOpen = ref(false);
     const selectedLang = ref('EN');
+    const mobileMenuOpen = ref(false);
     const avLang = {
       CA: CA_svg,
       EN: EN_svg,
@@ -73,13 +113,18 @@ export default {
     const requestRegister = () => {
       emit('requestRegister');
     };
+    const requestRedirect = (where) => {
+      console.log('redirect to: ', where);
+    };
     return {
       selectorOpen,
       avLang,
       selectedLang,
+      mobileMenuOpen,
       setLanguage,
       requestLogin,
       requestRegister,
+      requestRedirect,
     };
   },
 };
@@ -94,25 +139,109 @@ $rotate: 45deg
   top: 0px
   left: 0px
   display: flex
+  flex-wrap: wrap
   flex-direction: row
   align-items: center
-  justify-content: center
+  justify-content: space-between
   gap: 5%
   width: 100%
   height: 60px
-  padding: 0px 5%
+  padding: 0 5%
   margin-top: 40px
   .container__logo
     display: flex
     flex-direction: row
     justify-content: center
     align-items: center
-    min-width: 155px
-    height: 52px
-    background: url('/src/assets/header/logo.svg')
-    background-position: center
-    background-repeat: no-repeat
-    cursor: pointer
+    gap: 20px
+    .container__nav-mobile
+      position: relative
+      display: none
+      height: 10px
+      width: 10px
+      border-bottom: 3px solid #B9C6D6
+      z-index: 146
+      transition: all 0.3s ease-in-out
+      cursor: pointer
+      margin: 5px
+      &::before
+        position: absolute
+        top: 0px
+        left: 0
+        content: ''
+        border-bottom: 3px solid #B9C6D6
+        height: 20px
+        width: 20px
+        transition: all 0.3s ease-in-out
+      &::after
+        position: absolute
+        top: -3px
+        left: 0
+        content: ''
+        border-top: 3px solid #B9C6D6
+        height: 20px
+        width: 20px
+        transition: all 0.3s ease-in-out
+      &:active
+        border-color: #e49100
+      &:active::before
+        border-color: #e49100
+      &:active::after
+        border-color: #e49100
+      &-active
+        border: none
+        &::before
+          transform: rotateZ(45deg)
+          top: -8px
+          left: 0px
+        &::after
+          transform: rotateZ(-45deg)
+          top: 4px
+          left: 0px
+      .mobile__background
+        z-index: -1
+        position: fixed
+        top: 0
+        left: 0
+        width: 100vw
+        height: 100vh
+        background: rgba(0, 0, 0, 0.82)
+        background-position: center
+        background-size: cover
+        .nav__mobile
+          display: flex
+          flex-direction: column
+          justify-content: flex-start
+          align-items: flex-start
+          gap: 20px
+          padding: 110px 20px
+          &__element
+            font-weight: 700
+            font-size: 18px
+            line-height: 22px
+            letter-spacing: 0.01em
+            color: #B9C6D6
+            min-width: 250px
+            min-height: 35px
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            padding: 8px 40px
+            &:active
+              background: #000000
+              border-radius: 20px
+              color: #E49100
+    .logo
+      display: flex
+      flex-direction: row
+      justify-content: center
+      align-items: center
+      min-width: 155px
+      height: 52px
+      background: url('/src/assets/header/logo.svg')
+      background-position: center
+      background-repeat: no-repeat
+      cursor: pointer
   .container__nav
     display: flex
     flex-direction: row
@@ -251,4 +380,21 @@ $rotate: 45deg
         height: 50px
         background: rgba(0, 0, 0, 0.6)
         color: #FFFFFF
+@media (max-width: 1440px)
+  .container__header
+    gap: unset
+    padding: 0 40px
+  .nav__element
+    font-size: 15px !important
+@media (max-width: 960px)
+  .container__header
+    padding: 0 20px
+  .container__logo
+    margin-right: 250px
+    .logo
+      z-index: 146
+  .container__nav
+    display: none !important
+  .container__nav-mobile
+    display: flex !important
 </style>

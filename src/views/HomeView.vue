@@ -26,7 +26,7 @@ const apiRegisterData = (proxyData) => {
   console.log(proxyData);
 };
 const updateLanguage = (lang) => {
-  console.log(lang);
+  console.log('selectedLang: ', lang);
 };
 const toggleLoginForm = () => {
   console.log('LET ME IN!');
@@ -64,4 +64,12 @@ const toggleLoginForm = () => {
       background: url('/src/assets/info_btn_hover.svg')
     &:active
       background: url('/src/assets/info_btn_active.svg')
+@media (max-width: 1440px)
+  .register
+    right: 40px !important
+  .info__btn
+    right: 1% !important
+@media (max-width: 980px)
+  .register
+    right: 20px !important
 </style>

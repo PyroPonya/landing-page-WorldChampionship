@@ -3,7 +3,7 @@
     :spaceBetween="0"
     :centeredSlides="true"
     :autoplay="{
-      delay: 5000,
+      delay: 500000,
       disableOnInteraction: false,
     }"
     :loop="false"
@@ -12,7 +12,6 @@
     :navigation="false"
     :modules="modules"
     :thumbs="{ swiper: thumbsSwiper }"
-    @swiper="onSwiper"
     @slideChange="onSlideChange"
     class="mySwiper"
   >
@@ -134,15 +133,11 @@ export default {
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     };
-    const onSwiper = (swiper) => {
-      console.log('onSwiper', swiper);
-    };
     const onSlideChange = (slideChange) => {
       activeControl.value = slideChange.activeIndex;
     };
     return {
       modules: [Autoplay, Pagination, Navigation, Thumbs],
-      onSwiper,
       onSlideChange,
       thumbsSwiper,
       setThumbsSwiper,
@@ -159,7 +154,6 @@ export default {
 }
 
 .thumbs_swiper {
-  /* display: none; */
   position: absolute;
   height: 200px;
   width: 85%;
@@ -189,8 +183,8 @@ export default {
   height: 176px;
   background: rgba(28, 35, 48, 0.63);
   border-radius: 30px;
+  padding: 15px;
 }
-/* @TODO: highlight current slide */
 .thumb_swiper_slide-active {
   outline: 1.5px solid #e49100;
   background-color: #0e1117;
@@ -198,18 +192,6 @@ export default {
 .thumb_swiper_slide-active .thumbs__head__content__title {
   color: #e49100;
 }
-
-/* .thumbs_swiper_one {
-  background-image: url('/src/assets/slider/slide_2.jpg');
-}
-
-.thumbs_swiper_two {
-  background-image: url('/src/assets/slider/slide_3.jpg');
-}
-
-.thumbs_swiper_three {
-  background-image: url('/src/assets/slider/slide_1.jpg');
-} */
 .thumbs__head {
   display: flex;
   flex-direction: row;
@@ -221,8 +203,8 @@ export default {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 72px;
-  width: 72px;
+  min-height: 72px;
+  min-width: 72px;
 }
 .thumbs__head__content {
   display: flex;
@@ -242,6 +224,7 @@ export default {
   color: #ffffff;
 }
 .thumbs__head__content__text {
+  text-align: left;
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 500;
@@ -302,13 +285,6 @@ export default {
   align-items: center;
 }
 
-/* .swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
-
 .mySwiper {
   margin-left: auto;
   margin-right: auto;
@@ -350,7 +326,6 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 15px;
   margin-left: 40px;
 }
 
@@ -358,6 +333,7 @@ export default {
   font-weight: 600;
   font-size: 30px;
   line-height: 37px;
+  margin-bottom: 15px;
 }
 
 .content__text {
@@ -368,5 +344,50 @@ export default {
   font-size: 40px;
   line-height: 49px;
   text-align: left;
+  margin-bottom: 45px;
+}
+
+@media (max-width: 1440px) {
+  .slide__content {
+    left: 0;
+  }
+  .thumbs_swiper {
+    width: 100%;
+    bottom: 1%;
+  }
+  .thumb_swiper_slide {
+    max-height: 160px;
+    max-width: 300px;
+  }
+}
+@media (max-width: 980px) {
+  .thumbs_swiper {
+    bottom: 5%;
+  }
+  .thumb_swiper_slide {
+    max-height: 160px;
+    max-width: 260px;
+    align-items: flex-end;
+  }
+  .thumbs__head__content__title {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .thumbs__head__content__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .slide__content {
+    max-width: 500px;
+    margin-left: 20px;
+  }
+  .content__title {
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .content__text {
+    font-size: 36px;
+    line-height: 44px;
+  }
 }
 </style>
