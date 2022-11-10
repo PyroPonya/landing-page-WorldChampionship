@@ -79,7 +79,7 @@
           I am 18 years old and I accept the
           <a class="link">Privacy Policy</a>
           and
-          <a class="link">Terms and Conditions*</a>
+          <a class="link link__terms">Terms and Conditions</a>
         </div>
       </div>
       <div class="form__text promos">
@@ -447,12 +447,22 @@ export default {
   -webkit-background-clip: text
   -webkit-text-fill-color: transparent
   cursor: pointer
+  border-bottom: 1px solid #FFB639
+  margin-bottom: -1px
   &:hover
     background: linear-gradient(256.33deg, #FFD644 18.19%, #FFBB0E 80.14%)
     background-clip: text
     text-fill-color: transparent
     -webkit-background-clip: text
     -webkit-text-fill-color: transparent
+    border-bottom: 1px solid #FFD644
+    margin-bottom: -1px
+  a
+    text-decoration: none
+  &__terms
+    position: relative
+    &::after
+      content: '*'
 .dropdown
   position: relative
   top: 100% + 5

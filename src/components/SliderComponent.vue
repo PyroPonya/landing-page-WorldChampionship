@@ -377,6 +377,9 @@ export default {
     font-size: 12px;
     line-height: 15px;
   }
+  .slide {
+    background-position: top;
+  }
   .slide__content {
     max-width: 500px;
     margin-left: 20px;
@@ -388,6 +391,30 @@ export default {
   .content__text {
     font-size: 36px;
     line-height: 44px;
+  }
+  .slider__one {
+    background-image: url('/src/assets/slider/slide_1_mobile.jpg');
+  }
+
+  .slider__two {
+    background-image: url('/src/assets/slider/slide_2_mobile.jpg');
+  }
+
+  .slider__three {
+    background-image: url('/src/assets/slider/slide_3_mobile.jpg');
+  }
+}
+@media (max-width: 360px) {
+  .slider__one {
+    background-image: url('/src/assets/slider/slide_1_mobile_long.jpg');
+  }
+
+  .slider__two {
+    background-image: url('/src/assets/slider/slide_2_mobile_long.jpg');
+  }
+
+  .slider__three {
+    background-image: url('/src/assets/slider/slide_3_mobile_long.jpg');
   }
 }
 </style>

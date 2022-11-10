@@ -319,7 +319,7 @@ $rotate: 45deg
     position: relative
     display: flex
     flex-direction: row
-    justify-content: center
+    justify-content: flex-start
     align-items: center
     gap: 15px
     padding: 10px 8px
@@ -349,7 +349,7 @@ $rotate: 45deg
       width: 10px
       border-right: 2px solid #ffffff
       border-bottom: 2px solid #ffffff
-      right: 5%
+      right: 10%
       bottom: 45%
       transform: rotate(var(--rotate))
       transition: all 0.3s ease-in-out
@@ -378,14 +378,18 @@ $rotate: 45deg
         min-width: 130px
         width: 100%
         height: 50px
-        background: rgba(0, 0, 0, 0.6)
         color: #FFFFFF
 @media (max-width: 1440px)
   .container__header
+    // flex-wrap: nowrap
     gap: unset
     padding: 0 40px
   .nav__element
     font-size: 15px !important
+  .lang__dropdown
+    left: 0% !important
+    .dropdown__el
+      min-width: 100% !important
 @media (max-width: 960px)
   .container__header
     padding: 0 20px
@@ -397,4 +401,17 @@ $rotate: 45deg
     display: none !important
   .container__nav-mobile
     display: flex !important
+@media (max-width: 360px)
+  .container__header
+    flex-wrap: nowrap
+  .container__logo
+    margin-right: 0px
+  .logo
+    background: url('/src/assets/header/logo_mobile.svg') !important
+    max-height: 50px !important
+    max-width: 50px !important
+    background-position: left !important
+    background-repeat: no-repeat !important
+  .container__btn
+    display: none !important
 </style>
