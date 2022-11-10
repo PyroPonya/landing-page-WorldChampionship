@@ -147,7 +147,6 @@ $rotate: 45deg
   width: 100%
   height: 60px
   padding: 0 5%
-  margin-top: 40px
   .container__logo
     display: flex
     flex-direction: row

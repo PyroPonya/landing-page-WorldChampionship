@@ -149,7 +149,6 @@ export default {
 <style scoped>
 .swiper {
   width: 100%;
-  height: 100%;
   height: 100vh;
 }
 
@@ -405,6 +404,9 @@ export default {
   }
 }
 @media (max-width: 360px) {
+  .swiper {
+    height: 100%;
+  }
   .slider__one {
     background-image: url('/src/assets/slider/slide_1_mobile_long.jpg');
   }

@@ -44,6 +44,7 @@ const toggleLoginForm = () => {
   background-color: black
   .header
     z-index: 6
+    margin-top: 40px
   .register
     position: absolute
     top: 15%
@@ -64,12 +65,22 @@ const toggleLoginForm = () => {
       background: url('/src/assets/info_btn_hover.svg')
     &:active
       background: url('/src/assets/info_btn_active.svg')
+
 @media (max-width: 1440px)
   .register
     right: 40px !important
   .info__btn
     right: 1% !important
+
 @media (max-width: 980px)
   .register
     right: 20px !important
+
+@medie (max-width: 360px)
+.header
+  margin-top: 10px
+.container
+  .register
+    top: 340px
+    right: 0 !important
 </style>
