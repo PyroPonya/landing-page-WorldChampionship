@@ -136,8 +136,6 @@ export default {
     //   window.innerWidth < 400 ? 'horizontal' : 'vertical'
     // );
     const thumbsDirection = computed(() => {
-      console.log(window.innerWidth < 400);
-      console.log(thumbsDirection);
       return window.innerWidth < 400 ? 'vertical' : 'horizontal';
     });
     const setThumbsSwiper = (swiper) => {

@@ -17,11 +17,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import RegisterFormComponent from '../components/RegisterFormComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import SliderComponent from '../components/SliderComponent.vue';
 const registerFormDisplay = ref(true);
+// blurify start
+const scrolly = ref();
+const blur = ref('none');
+const logEvent = () => {
+  scrolly.value = window.top.scrollY;
+  scrolly.value > 60 ? (blur.value = 'blur(7.5px)') : (blur.value = '');
+};
+onMounted(() => {
+  document.addEventListener('scroll', (e) => logEvent(e));
+});
+onUnmounted(() => {
+  document.removeEventListener('scroll', logEvent());
+});
+// blurify end
 const apiRegisterData = (proxyData) => {
   console.log(proxyData);
 };
@@ -45,6 +59,7 @@ const toggleLoginForm = () => {
   .header
     z-index: 6
     margin-top: 40px
+    backdrop-filter: v-bind(blur)
   .register
     position: absolute
     top: 15%
@@ -79,6 +94,7 @@ const toggleLoginForm = () => {
 @media (max-width: 360px)
   .header
     margin: 0px !important
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%)
   .register
     top: 340px !important
     top: 380px !important
