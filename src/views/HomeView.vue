@@ -76,11 +76,11 @@ const toggleLoginForm = () => {
   .register
     right: 20px !important
 
-@medie (max-width: 360px)
-.header
-  margin-top: 10px
-.container
+@media (max-width: 360px)
+  .header
+    margin: 0px !important
   .register
-    top: 340px
-    right: 0 !important
+    top: 340px !important
+    top: 380px !important
+    right: 15px !important
 </style>

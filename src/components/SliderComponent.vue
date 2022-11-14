@@ -3,7 +3,7 @@
     :spaceBetween="0"
     :centeredSlides="true"
     :autoplay="{
-      delay: 500000,
+      delay: 5000,
       disableOnInteraction: false,
     }"
     :loop="false"
@@ -51,6 +51,7 @@
   <swiper
     :modules="modules"
     :slidesPerView="3"
+    :direction="thumbsDirection"
     :loop="false"
     watch-slides-progress
     @swiper="setThumbsSwiper"
@@ -121,6 +122,7 @@ import 'swiper/css/navigation';
 // import required modules
 import { Autoplay, Pagination, Navigation, Thumbs } from 'swiper';
 import { ref } from 'vue';
+import { computed } from 'vue';
 
 export default {
   components: {
@@ -130,6 +132,14 @@ export default {
   setup() {
     const thumbsSwiper = ref(null);
     const activeControl = ref('0');
+    // const thumbsDirection = ref(
+    //   window.innerWidth < 400 ? 'horizontal' : 'vertical'
+    // );
+    const thumbsDirection = computed(() => {
+      console.log(window.innerWidth < 400);
+      console.log(thumbsDirection);
+      return window.innerWidth < 400 ? 'vertical' : 'horizontal';
+    });
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     };
@@ -142,6 +152,7 @@ export default {
       thumbsSwiper,
       setThumbsSwiper,
       activeControl,
+      thumbsDirection,
     };
   },
 };
@@ -405,7 +416,8 @@ export default {
 }
 @media (max-width: 360px) {
   .swiper {
-    height: 100%;
+    /* height: 100%; */
+    height: 1535px;
   }
   .slider__one {
     background-image: url('/src/assets/slider/slide_1_mobile_long.jpg');
@@ -417,6 +429,34 @@ export default {
 
   .slider__three {
     background-image: url('/src/assets/slider/slide_3_mobile_long.jpg');
+  }
+  .thumbs_swiper {
+    display: flex !important;
+    flex-direction: column !important;
+    bottom: 0;
+    height: 510px;
+    width: 100%;
+    /* display: none !important; */
+  }
+  .slide__content {
+    top: 115px;
+  }
+  .content__title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 10px;
+  }
+
+  .content__text {
+    font-weight: 900;
+    font-size: 22px;
+    line-height: 27px;
+    text-align: left;
+    margin-bottom: 25px;
+  }
+  .thumbs_swiper .swiper-wrapper {
+    display: none;
   }
 }
 </style>
