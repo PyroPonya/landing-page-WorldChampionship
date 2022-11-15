@@ -53,7 +53,7 @@ export const useLanguageStore = defineStore('languages', () => {
               body: ['50% only win FREE BET UP TO 100 €'],
             },
             second: {
-              title: ['Welcome bonus', 'RELOAD YOUE ACCOUNT', 'VIP BONUS 110%'],
+              title: ['Welcome bonus', 'RELOAD YOUR ACCOUNT', 'VIP BONUS 110%'],
               body: [
                 'FOR NEW PLAYERS 3,5 BTC + 325 FS CASHBACK',
                 'GET 50 FREE SPINS',
@@ -120,7 +120,7 @@ export const useLanguageStore = defineStore('languages', () => {
               body: ['50% only win FREE BET UP TO 160 AUD'],
             },
             second: {
-              title: ['Welcome bonus', 'RELOAD YOUE ACCOUNT', 'VIP BONUS 110%'],
+              title: ['Welcome bonus', 'RELOAD YOUR ACCOUNT', 'VIP BONUS 110%'],
               body: [
                 'FOR NEW PLAYERS 3,5 BTC + 325 FS CASHBACK',
                 'GET 50 FREE SPINS',
@@ -187,7 +187,7 @@ export const useLanguageStore = defineStore('languages', () => {
               body: ['50% only win FREE BET UP TO 140 CAD'],
             },
             second: {
-              title: ['Welcome bonus', 'RELOAD YOUE ACCOUNT', 'VIP BONUS 110%'],
+              title: ['Welcome bonus', 'RELOAD YOUR ACCOUNT', 'VIP BONUS 110%'],
               body: [
                 '100% UP TO 200 CAD OR 1 BTC + 50 FS',
                 'GET 50 FREE SPINS',
@@ -254,7 +254,7 @@ export const useLanguageStore = defineStore('languages', () => {
               body: ['50% only win FREE BET UP TO 175 NZD'],
             },
             second: {
-              title: ['Welcome bonus', 'RELOAD YOUE ACCOUNT', 'VIP BONUS 110%'],
+              title: ['Welcome bonus', 'RELOAD YOUR ACCOUNT', 'VIP BONUS 110%'],
               body: [
                 '100% UP TO 250 NZD OR 1 BTC + 50 FS',
                 'GET 50 FREE SPINS',
