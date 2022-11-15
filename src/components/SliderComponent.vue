@@ -516,7 +516,7 @@ export default {
 @media (max-width: 415px) {
   .swiper {
     /* height: 100%; */
-    height: 1535px;
+    height: 1280px;
   }
   .slider__one {
     background-position: top;
@@ -536,7 +536,7 @@ export default {
     display: flex !important;
     flex-direction: column !important;
     bottom: 3%;
-    height: 520px;
+    height: calc(175px * 3);
     width: 100%;
     /* display: none !important; */
   }
@@ -565,7 +565,7 @@ export default {
     margin-bottom: 25px;
   }
   .thumb_swiper_slide {
-    max-height: 160px;
+    max-height: 175px;
     max-width: 330px;
     align-items: center;
     padding: 20px 25px;
