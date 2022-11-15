@@ -362,6 +362,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-transform: uppercase;
 }
 .thumbs__bottom:hover {
   background: linear-gradient(256.33deg, #ffd644 18.19%, #ffbb0e 80.14%);

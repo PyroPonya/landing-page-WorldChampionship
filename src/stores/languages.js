@@ -8,7 +8,7 @@ export const useLanguageStore = defineStore('languages', () => {
     sportsbook: 'https://sports.13bets.io/en',
     casino: 'https://www.13bets.io',
     live_games: 'https://www.13bets.io/games/live_casino',
-    promotions: 'https://www.13bets.io/promotions',
+    promotions: 'https://sports.13bets.io/en/promotions',
     vip_program: 'https://www.13bets.io/vip',
     sign_in: 'https://sports.13bets.io/en',
     sign_up: 'https://sports.13bets.io/en',
@@ -17,6 +17,7 @@ export const useLanguageStore = defineStore('languages', () => {
     bet_sportsbook: 'https://sports.13bets.io/en',
     play_casino: 'https://www.13bets.io/games/slots',
     play_live_casino: 'https://www.13bets.io/games/live_casino',
+    support: 'https://www.13bets.io/support',
   };
   const languages = {
     en: {
@@ -24,7 +25,7 @@ export const useLanguageStore = defineStore('languages', () => {
         header: {
           sportsbook: 'sportsbook',
           casino: 'casino',
-          live_games: 'life games',
+          live_games: 'live games',
           promotions: 'promotions',
           vip_program: 'vip program',
           sign_in: 'sign in',
@@ -91,7 +92,7 @@ export const useLanguageStore = defineStore('languages', () => {
         header: {
           sportsbook: 'sportsbook',
           casino: 'casino',
-          live_games: 'life games',
+          live_games: 'live games',
           promotions: 'promotions',
           vip_program: 'vip program',
           sign_in: 'sign in',
@@ -158,7 +159,7 @@ export const useLanguageStore = defineStore('languages', () => {
         header: {
           sportsbook: 'sportsbook',
           casino: 'casino',
-          live_games: 'life games',
+          live_games: 'live games',
           promotions: 'promotions',
           vip_program: 'vip program',
           sign_in: 'sign in',
@@ -225,7 +226,7 @@ export const useLanguageStore = defineStore('languages', () => {
         header: {
           sportsbook: 'sportsbook',
           casino: 'casino',
-          live_games: 'life games',
+          live_games: 'live games',
           promotions: 'promotions',
           vip_program: 'vip program',
           sign_in: 'sign in',

@@ -24,7 +24,7 @@
       @regData="(payload) => apiRegisterData(payload)"
     ></register-form-component>
     <div v-if="isMobile && store.showForm" class="bg__blur"></div>
-    <div class="info__btn"></div>
+    <div @click="redirectTo(store.links.support)" class="info__btn"></div>
   </div>
 </template>
 
