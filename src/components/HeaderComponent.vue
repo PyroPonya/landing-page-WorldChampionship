@@ -249,6 +249,7 @@ $rotate: 45deg
             justify-content: flex-start
             align-items: center
             padding: 8px 40px
+            text-transform: uppercase
             &:active
               background: #000000
               border-radius: 20px

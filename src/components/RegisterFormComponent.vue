@@ -835,6 +835,7 @@ export default {
         right: 10%
       .form__login
         justify-content: flex-start
+        align-items: flex-start
         gap: 5px
       .dropdown
         max-width: 240px
