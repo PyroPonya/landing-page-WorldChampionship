@@ -97,6 +97,7 @@
     :slidesPerView="3"
     :direction="thumbsDirection"
     :loop="false"
+    :spaceBetween="5"
     watch-slides-progress
     @swiper="setThumbsSwiper"
     class="thumbs_swiper"
@@ -374,7 +375,7 @@ export default {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
+  /* background: #fff; */
 
   /* Center slide text vertically */
   display: -webkit-box;
@@ -537,19 +538,16 @@ export default {
     display: flex !important;
     flex-direction: column !important;
     bottom: 3%;
-    height: calc(175px * 3);
+    height: calc(180px * 3);
     width: 100%;
     /* display: none !important; */
-  }
-  .thumbs_slide_container {
-    margin-bottom: 0px;
-  }
-  .thumbs_slide_container:last {
-    margin-bottom: none;
   }
   .slide__content {
     top: 115px;
     max-width: 320px;
+  }
+  .thumbs_slide_container {
+    max-height: 175px;
   }
   .content__title {
     font-weight: 600;
@@ -570,6 +568,7 @@ export default {
     max-width: 330px;
     align-items: center;
     padding: 20px 25px;
+    margin: 5px 0px;
   }
   .thumbs__bottom {
     margin-left: 15%;
