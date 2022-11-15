@@ -83,6 +83,7 @@ const toggleLoginForm = () => {
   .header
     z-index: 6
     backdrop-filter: v-bind(blur)
+    -webkit-backdrop-filter: v-bind(blur)
   .register
     position: absolute
     top: 15%
@@ -111,6 +112,7 @@ const toggleLoginForm = () => {
     width: 100vw
     background: rgba(0, 0, 0, 0.56)
     backdrop-filter: blur(4px)
+    -webkit-backdrop-filter: blur(4px)
     z-index: 1
 
 @media (max-width: 1440px)
