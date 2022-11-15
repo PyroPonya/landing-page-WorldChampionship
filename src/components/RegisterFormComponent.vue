@@ -574,6 +574,7 @@ export default {
     text-align: center
     color: #FFFFFF
     margin-bottom: 14px
+    text-transform: uppercase
   &__input
     background: #1C2330
     border-radius: 12px
