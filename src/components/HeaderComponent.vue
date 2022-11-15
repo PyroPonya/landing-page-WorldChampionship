@@ -9,62 +9,79 @@
         <div v-if="mobileMenuOpen" class="mobile__background">
           <div class="nav__mobile">
             <div
-              @click.stop="requestRedirect('SPORTSBOOK')"
+              @click.stop="requestRedirect(store.links.sportsbook)"
               class="nav__mobile__element"
             >
-              SPORTSBOOK
+              {{ store.languages[currentLanguage].interface.header.sportsbook }}
             </div>
             <div
-              @click.stop="requestRedirect('CASINO')"
+              @click.stop="requestRedirect(store.links.casino)"
               class="nav__mobile__element"
             >
-              CASINO
+              {{ store.languages[currentLanguage].interface.header.casino }}
             </div>
             <div
-              @click.stop="requestRedirect('LIVE GAMES')"
+              @click.stop="requestRedirect(store.links.live_games)"
               class="nav__mobile__element"
             >
-              LIVE&nbsp;GAMES
+              {{ store.languages[currentLanguage].interface.header.live_games }}
             </div>
             <div
-              @click.stop="requestRedirect('PROMOTIONS')"
+              @click.stop="requestRedirect(store.links.promotions)"
               class="nav__mobile__element"
             >
-              PROMOTIONS
+              {{ store.languages[currentLanguage].interface.header.promotions }}
             </div>
             <div
-              @click.stop="requestRedirect('VIP PROGRAM')"
+              @click.stop="requestRedirect(store.links.vip_program)"
               class="nav__mobile__element"
             >
-              VIP&nbsp;PROGRAM
+              {{
+                store.languages[currentLanguage].interface.header.vip_program
+              }}
             </div>
           </div>
         </div>
       </div>
-      <div class="logo"></div>
+      <div @click="store.useForm()" class="logo"></div>
     </div>
     <div class="container__nav">
-      <div class="nav__element">
+      <div
+        @click="requestRedirect(store.links.sportsbook)"
+        class="nav__element"
+      >
         {{ store.languages[currentLanguage].interface.header.sportsbook }}
       </div>
-      <div class="nav__element">
+      <div @click="requestRedirect(store.links.casino)" class="nav__element">
         {{ store.languages[currentLanguage].interface.header.casino }}
       </div>
-      <div class="nav__element">
+      <div
+        @click="requestRedirect(store.links.live_games)"
+        class="nav__element"
+      >
         {{ store.languages[currentLanguage].interface.header.live_games }}
       </div>
-      <div class="nav__element">
+      <div
+        @click="requestRedirect(store.links.promotions)"
+        class="nav__element"
+      >
         {{ store.languages[currentLanguage].interface.header.promotions }}
       </div>
-      <div class="nav__element">
+      <div
+        @click="requestRedirect(store.links.vip_program)"
+        class="nav__element"
+      >
         {{ store.languages[currentLanguage].interface.header.vip_program }}
       </div>
     </div>
     <div class="container__btn">
-      <div @click="requestLogin" class="btn btn__login">
+      <div @click="requestRedirect(store.links.sign_in)" class="btn btn__login">
         {{ store.languages[currentLanguage].interface.header.sign_in }}
       </div>
-      <div @click="requestRegister" class="btn btn__register">
+      <div
+        @click="requestRedirect(store.links.sign_up)"
+        class="btn btn__register"
+      >
         {{ store.languages[currentLanguage].interface.header.sign_up }}
       </div>
     </div>
@@ -116,23 +133,12 @@ export default {
       NZ: NZ_svg,
       DE: DE_svg,
     };
-    // logger
-    const logger = (msg) => {
-      console.log(msg);
-    };
-    //
     const setLanguage = (id) => {
       selectedLang.value = id;
       emit('setLang', selectedLang.value.toLowerCase());
     };
-    const requestLogin = () => {
-      emit('requestLogin');
-    };
-    const requestRegister = () => {
-      emit('requestRegister');
-    };
     const requestRedirect = (where) => {
-      console.log('redirect to: ', where);
+      emit('requestRedirect', where);
     };
     return {
       selectorOpen,
@@ -141,10 +147,7 @@ export default {
       mobileMenuOpen,
       props,
       setLanguage,
-      requestLogin,
-      requestRegister,
       requestRedirect,
-      logger,
     };
   },
 };
@@ -165,7 +168,7 @@ $rotate: 45deg
   justify-content: space-between
   gap: 5%
   width: 100%
-  height: 60px
+  height: 100px
   padding: 0 5%
   .container__logo
     display: flex
@@ -422,7 +425,7 @@ $rotate: 45deg
     display: none !important
   .container__nav-mobile
     display: flex !important
-@media (max-width: 360px)
+@media (max-width: 415px)
   .container__header
     flex-wrap: nowrap
   .container__logo

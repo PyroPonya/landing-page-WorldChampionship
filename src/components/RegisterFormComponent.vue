@@ -81,13 +81,21 @@
         ></div>
         <div class="terms__text">
           {{ store.languages[currentLanguage].interface.register.terms[0] }}
-          <a class="link">{{
-            store.languages[currentLanguage].interface.register.terms[1]
-          }}</a>
+          <a
+            @click="requestRedirect(store.links.privacy_policy)"
+            class="link"
+            >{{
+              store.languages[currentLanguage].interface.register.terms[1]
+            }}</a
+          >
           {{ store.languages[currentLanguage].interface.register.terms[2] }}
-          <a class="link link__terms">{{
-            store.languages[currentLanguage].interface.register.terms[3]
-          }}</a>
+          <a
+            @click="requestRedirect(store.links.terms)"
+            class="link link__terms"
+            >{{
+              store.languages[currentLanguage].interface.register.terms[3]
+            }}</a
+          >
         </div>
       </div>
       <div class="form__text promos">
@@ -107,16 +115,14 @@
           </div>
         </div>
       </div>
-      <!-- <div v-else class="btn-container">
-        <div class="form__btn-error">
-          <div class="btn__text">SIGN&nbsp;UP</div>
-        </div>
-      </div> -->
       <div class="form__login">
         <div class="login__title">
           {{ store.languages[currentLanguage].interface.register.already }}
         </div>
-        <div class="login__link link">
+        <div
+          @click="requestRedirect(store.links.sign_in)"
+          class="login__link link"
+        >
           {{ store.languages[currentLanguage].interface.register.sign_in }}
         </div>
       </div>
@@ -407,6 +413,9 @@ export default {
         return true;
       }
     };
+    const requestRedirect = (where) => {
+      emit('requestRedirect', where);
+    };
     // emits registration data
     const pushData = () => {
       if (validateData()) {
@@ -450,6 +459,7 @@ export default {
       props,
       validateData,
       pushData,
+      requestRedirect,
     };
   },
 };
@@ -808,7 +818,7 @@ export default {
         width: 38px
         background: center / contain no-repeat url("/src/assets/form/iDebit.svg")
 
-@media (max-width: 360px)
+@media (max-width: 415px)
   .form
     display: flex !important
     flex-direction: column

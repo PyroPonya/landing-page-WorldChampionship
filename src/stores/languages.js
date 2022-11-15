@@ -3,6 +3,21 @@ import { defineStore } from 'pinia';
 
 export const useLanguageStore = defineStore('languages', () => {
   const count = ref(0);
+  const showForm = ref(true);
+  const links = {
+    sportsbook: 'https://sports.13bets.io/en',
+    casino: 'https://www.13bets.io',
+    live_games: 'https://www.13bets.io/games/live_casino',
+    promotions: 'https://www.13bets.io/promotions',
+    vip_program: 'https://www.13bets.io/vip',
+    sign_in: 'https://sports.13bets.io/en',
+    sign_up: 'https://sports.13bets.io/en',
+    privacy_policy: 'https://www.13bets.io/privacy-policy',
+    terms: 'https://www.13bets.io/terms-and-conditions',
+    bet_sportsbook: 'https://sports.13bets.io/en',
+    play_casino: 'https://www.13bets.io/games/slots',
+    play_live_casino: 'https://www.13bets.io/games/live_casino',
+  };
   const languages = {
     en: {
       interface: {
@@ -348,6 +363,9 @@ export const useLanguageStore = defineStore('languages', () => {
   function increment() {
     count.value++;
   }
+  const useForm = () => {
+    showForm.value = !showForm.value;
+  };
 
-  return { count, languages, doubleCount, increment };
+  return { count, showForm, links, languages, doubleCount, increment, useForm };
 });

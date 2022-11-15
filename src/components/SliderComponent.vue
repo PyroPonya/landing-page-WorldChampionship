@@ -123,7 +123,10 @@
             </div>
           </div>
         </div>
-        <div class="thumbs__bottom">
+        <div
+          @click="requestRedirect(store.links.bet_sportsbook)"
+          class="thumbs__bottom"
+        >
           {{
             store.languages[currentLanguage].interface.slider.pagination.buttons
               .sportsbook
@@ -153,7 +156,10 @@
             </div>
           </div>
         </div>
-        <div class="thumbs__bottom">
+        <div
+          @click="requestRedirect(store.links.play_casino)"
+          class="thumbs__bottom"
+        >
           {{
             store.languages[currentLanguage].interface.slider.pagination.buttons
               .casino
@@ -183,7 +189,10 @@
             </div>
           </div>
         </div>
-        <div class="thumbs__bottom">
+        <div
+          @click="requestRedirect(store.links.play_live_casino)"
+          class="thumbs__bottom"
+        >
           {{
             store.languages[currentLanguage].interface.slider.pagination.buttons
               .live_casino
@@ -213,20 +222,21 @@ export default {
     SwiperSlide,
   },
   props: ['store', 'currentLanguage'],
-  setup(props) {
+  emits: ['requestRedirect'],
+  setup(props, { emit }) {
     const thumbsSwiper = ref(null);
     const activeControl = ref('0');
-    // const thumbsDirection = ref(
-    //   window.innerWidth < 400 ? 'horizontal' : 'vertical'
-    // );
     const thumbsDirection = computed(() => {
-      return window.innerWidth < 400 ? 'vertical' : 'horizontal';
+      return window.innerWidth <= 415 ? 'vertical' : 'horizontal';
     });
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     };
     const onSlideChange = (slideChange) => {
       activeControl.value = slideChange.activeIndex;
+    };
+    const requestRedirect = (where) => {
+      emit('requestRedirect', where);
     };
     return {
       modules: [Autoplay, Pagination, Navigation, Thumbs],
@@ -236,6 +246,7 @@ export default {
       setThumbsSwiper,
       activeControl,
       thumbsDirection,
+      requestRedirect,
     };
   },
 };
@@ -426,8 +437,8 @@ export default {
 
 .content__title {
   font-weight: 600;
-  font-size: 30px;
-  line-height: 37px;
+  font-size: 28px;
+  line-height: 34px;
   margin-bottom: 15px;
   text-align: left;
 }
@@ -437,8 +448,8 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
   font-weight: 900;
-  font-size: 40px;
-  line-height: 49px;
+  font-size: 36px;
+  line-height: 44px;
   text-align: left;
   margin-bottom: 45px;
   text-align: left;
@@ -502,44 +513,54 @@ export default {
     background-image: url('/src/assets/slider/slide_3_mobile.jpg');
   }
 }
-@media (max-width: 360px) {
+@media (max-width: 415px) {
   .swiper {
     /* height: 100%; */
     height: 1535px;
   }
   .slider__one {
+    background-position: top;
     background-image: url('/src/assets/slider/slide_1_mobile_long.jpg');
   }
 
   .slider__two {
+    background-position: top;
     background-image: url('/src/assets/slider/slide_2_mobile_long.jpg');
   }
 
   .slider__three {
+    background-position: top;
     background-image: url('/src/assets/slider/slide_3_mobile_long.jpg');
   }
   .thumbs_swiper {
     display: flex !important;
     flex-direction: column !important;
     bottom: 3%;
-    height: 510px;
+    height: 520px;
     width: 100%;
     /* display: none !important; */
   }
+  .thumbs_slide_container {
+    margin-bottom: 0px;
+  }
+  .thumbs_slide_container:last {
+    margin-bottom: none;
+  }
   .slide__content {
     top: 115px;
+    max-width: 320px;
   }
   .content__title {
     font-weight: 600;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 16px;
+    line-height: 20px;
     margin-bottom: 10px;
   }
 
   .content__text {
     font-weight: 900;
-    font-size: 22px;
-    line-height: 27px;
+    font-size: 20px;
+    line-height: 24px;
     text-align: left;
     margin-bottom: 25px;
   }

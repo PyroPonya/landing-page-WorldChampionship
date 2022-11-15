@@ -4,6 +4,7 @@
       class="header"
       :store="store"
       :currentLanguage="currentLanguage"
+      @requestRedirect="(payload) => redirectTo(payload)"
       @setLang="(payload) => updateLanguage(payload)"
       @requestLogin="toggleLoginForm"
       @requestRegister="registerFormDisplay = !registerFormDisplay"
@@ -11,25 +12,30 @@
     <slider-component
       :store="store"
       :currentLanguage="currentLanguage"
+      @requestRedirect="(payload) => redirectTo(payload)"
     ></slider-component>
     <register-form-component
+      v-if="store.showForm"
       class="register"
       :store="store"
       :currentLanguage="currentLanguage"
       :style="registerFormDisplay ? 'display: block' : 'display:none'"
+      @requestRedirect="(payload) => redirectTo(payload)"
       @regData="(payload) => apiRegisterData(payload)"
     ></register-form-component>
+    <div v-if="isMobile && store.showForm" class="bg__blur"></div>
     <div class="info__btn"></div>
   </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
+import { useLanguageStore } from '@/stores/languages';
 import RegisterFormComponent from '../components/RegisterFormComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import SliderComponent from '../components/SliderComponent.vue';
-import { useLanguageStore } from '@/stores/languages';
 const store = useLanguageStore();
+const isMobile = window.innerWidth <= 415 ? true : false;
 const registerFormDisplay = ref(true);
 // blurify start
 const scrolly = ref();
@@ -39,13 +45,20 @@ const logEvent = () => {
   scrolly.value = window.top.scrollY;
   scrolly.value > 60 ? (blur.value = 'blur(7.5px)') : (blur.value = '');
 };
+const checkScreen = () => {
+  window.innerWidth <= 415 ? store.useForm() : '';
+};
 onMounted(() => {
   document.addEventListener('scroll', (e) => logEvent(e));
+  checkScreen();
 });
 onUnmounted(() => {
   document.removeEventListener('scroll', logEvent());
 });
 // blurify end
+const redirectTo = (where) => {
+  window.location.assign(where);
+};
 const apiRegisterData = (proxyData) => {
   console.log(proxyData);
 };
@@ -69,7 +82,6 @@ const toggleLoginForm = () => {
   background-color: black
   .header
     z-index: 6
-    margin-top: 40px
     backdrop-filter: v-bind(blur)
   .register
     position: absolute
@@ -91,6 +103,15 @@ const toggleLoginForm = () => {
       background: url('/src/assets/info_btn_hover.svg')
     &:active
       background: url('/src/assets/info_btn_active.svg')
+  .bg__blur
+    position: fixed
+    left: 0
+    top: 0
+    height: 100vh
+    width: 100vw
+    background: rgba(0, 0, 0, 0.56)
+    backdrop-filter: blur(4px)
+    z-index: 1
 
 @media (max-width: 1440px)
   .register
@@ -102,14 +123,18 @@ const toggleLoginForm = () => {
   .register
     right: 20px !important
 
-@media (max-width: 360px)
+@media (max-width: 415px)
   .header
     margin: 0px !important
     background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%)
   .register
-    top: 340px !important
-    top: 380px !important
-    right: 15px !important
+    // top: 380px !important
+    // right: 15px !important
+    top: 15% !important
+    // left: 10% !important
+    right: auto !important
+    position: fixed !important
+
   .info__btn
     bottom: 5px !important
 </style>
