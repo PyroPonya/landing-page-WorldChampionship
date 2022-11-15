@@ -18,31 +18,75 @@
     <swiper-slide
       ><div class="slide slider__one">
         <div class="slide__content">
-          <div class="content__title">Welcome bonus</div>
-          <div class="content__text">10% NO RISK FREE BET UP TO 300 CAD</div>
-          <div class="content__title">First deposit bonus</div>
-          <div class="content__text">300% HUNTING BONUS UP TO 7,500 CAD</div>
+          <div class="content__title">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.first
+                .title[0]
+            }}
+          </div>
+          <div class="content__text">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.first
+                .body[0]
+            }}
+          </div>
         </div>
       </div> </swiper-slide
     ><swiper-slide
       ><div class="slide slider__two">
         <div class="slide__content">
-          <div class="content__title">Welcome bonus</div>
-          <div class="content__text">
-            FOR NEW PLAYERS 3,5 BTC + 325 FS CASHBACK
+          <div class="content__title">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.second
+                .title[0]
+            }}
           </div>
-          <div class="content__title">RELOAD YOUE ACCOUNT</div>
-          <div class="content__text">GET 50 FREE SPINS</div>
-          <div class="content__title">VIP BONUS 110%</div>
-          <div class="content__text">VIP UP TO 1500€</div>
+          <div class="content__text">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.second
+                .body[0]
+            }}
+          </div>
+          <div class="content__title">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.second
+                .title[1]
+            }}
+          </div>
+          <div class="content__text">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.second
+                .body[1]
+            }}
+          </div>
+          <div class="content__title">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.second
+                .title[2]
+            }}
+          </div>
+          <div class="content__text">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.second
+                .body[2]
+            }}
+          </div>
         </div>
       </div> </swiper-slide
     ><swiper-slide
       ><div class="slide slider__three">
         <div class="slide__content">
-          <div class="content__title">LIVE CASINO</div>
+          <div class="content__title">
+            {{
+              store.languages[currentLanguage].interface.slider.slides.third
+                .title[0]
+            }}
+          </div>
           <div class="content__text">
-            EXPERIENCE REAL EMOTIONS IN HUNDREDS OF LIVE CASINO GAMES
+            {{
+              store.languages[currentLanguage].interface.slider.slides.third
+                .body[0]
+            }}
           </div>
         </div>
       </div>
@@ -65,13 +109,26 @@
         <div class="thumbs__head">
           <div class="thumbs__head__icon thumbs__icon__one"></div>
           <div class="thumbs__head__content">
-            <div class="thumbs__head__content__title">SPORTBOOK</div>
+            <div class="thumbs__head__content__title">
+              {{
+                store.languages[currentLanguage].interface.slider.pagination
+                  .headers.sportsbook
+              }}
+            </div>
             <div class="thumbs__head__content__text">
-              Enjoy worlds biggest sports events
+              {{
+                store.languages[currentLanguage].interface.slider.pagination
+                  .body.sportsbook
+              }}
             </div>
           </div>
         </div>
-        <div class="thumbs__bottom">BET</div>
+        <div class="thumbs__bottom">
+          {{
+            store.languages[currentLanguage].interface.slider.pagination.buttons
+              .sportsbook
+          }}
+        </div>
       </div></swiper-slide
     >
     <swiper-slide class="thumbs_slide_container"
@@ -82,13 +139,26 @@
         <div class="thumbs__head">
           <div class="thumbs__head__icon thumbs__icon__two"></div>
           <div class="thumbs__head__content">
-            <div class="thumbs__head__content__title">CASINO</div>
+            <div class="thumbs__head__content__title">
+              {{
+                store.languages[currentLanguage].interface.slider.pagination
+                  .headers.casino
+              }}
+            </div>
             <div class="thumbs__head__content__text">
-              Feel the excitement of the best games
+              {{
+                store.languages[currentLanguage].interface.slider.pagination
+                  .body.casino
+              }}
             </div>
           </div>
         </div>
-        <div class="thumbs__bottom">PLAY</div>
+        <div class="thumbs__bottom">
+          {{
+            store.languages[currentLanguage].interface.slider.pagination.buttons
+              .casino
+          }}
+        </div>
       </div></swiper-slide
     >
     <swiper-slide class="thumbs_slide_container"
@@ -99,13 +169,26 @@
         <div class="thumbs__head">
           <div class="thumbs__head__icon thumbs__icon__three"></div>
           <div class="thumbs__head__content">
-            <div class="thumbs__head__content__title">LIVE&nbsp;CASINO</div>
+            <div class="thumbs__head__content__title">
+              {{
+                store.languages[currentLanguage].interface.slider.pagination
+                  .headers.live_casino
+              }}
+            </div>
             <div class="thumbs__head__content__text">
-              Experience the real casino thrill
+              {{
+                store.languages[currentLanguage].interface.slider.pagination
+                  .body.live_casino
+              }}
             </div>
           </div>
         </div>
-        <div class="thumbs__bottom">PLAY</div>
+        <div class="thumbs__bottom">
+          {{
+            store.languages[currentLanguage].interface.slider.pagination.buttons
+              .live_casino
+          }}
+        </div>
       </div></swiper-slide
     >
   </swiper>
@@ -129,7 +212,8 @@ export default {
     Swiper,
     SwiperSlide,
   },
-  setup() {
+  props: ['store', 'currentLanguage'],
+  setup(props) {
     const thumbsSwiper = ref(null);
     const activeControl = ref('0');
     // const thumbsDirection = ref(
@@ -146,6 +230,7 @@ export default {
     };
     return {
       modules: [Autoplay, Pagination, Navigation, Thumbs],
+      props,
       onSlideChange,
       thumbsSwiper,
       setThumbsSwiper,
@@ -180,7 +265,7 @@ export default {
   height: 180px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-position: center;
   background-size: cover;
@@ -190,11 +275,12 @@ export default {
   width: 459px;
   height: 176px;
   background: rgba(28, 35, 48, 0.63);
+  border: 1.5px solid rgba(28, 35, 48, 0.63);
   border-radius: 30px;
   padding: 15px;
 }
 .thumb_swiper_slide-active {
-  outline: 1.5px solid #e49100;
+  border: 1.5px solid #e49100;
   background-color: #0e1117;
 }
 .thumb_swiper_slide-active .thumbs__head__content__title {
@@ -294,6 +380,7 @@ export default {
 }
 
 .mySwiper {
+  min-height: 1234px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -309,15 +396,15 @@ export default {
 }
 
 .slider__one {
-  background-image: url('/src/assets/slider/slide_2.jpg');
+  background-image: url('/src/assets/slider/slide_1.jpg');
 }
 
 .slider__two {
-  background-image: url('/src/assets/slider/slide_3.jpg');
+  background-image: url('/src/assets/slider/slide_2.jpg');
 }
 
 .slider__three {
-  background-image: url('/src/assets/slider/slide_1.jpg');
+  background-image: url('/src/assets/slider/slide_3.jpg');
 }
 
 .slide__content {
@@ -342,6 +429,7 @@ export default {
   font-size: 30px;
   line-height: 37px;
   margin-bottom: 15px;
+  text-align: left;
 }
 
 .content__text {
@@ -353,6 +441,7 @@ export default {
   line-height: 49px;
   text-align: left;
   margin-bottom: 45px;
+  text-align: left;
 }
 
 @media (max-width: 1440px) {
@@ -364,7 +453,7 @@ export default {
     bottom: 1%;
   }
   .thumb_swiper_slide {
-    max-height: 160px;
+    min-height: 100%;
     max-width: 300px;
   }
 }
@@ -374,6 +463,7 @@ export default {
   }
   .thumb_swiper_slide {
     max-height: 160px;
+    min-height: 100%;
     max-width: 260px;
     align-items: flex-end;
   }
@@ -431,7 +521,7 @@ export default {
   .thumbs_swiper {
     display: flex !important;
     flex-direction: column !important;
-    bottom: 0;
+    bottom: 3%;
     height: 510px;
     width: 100%;
     /* display: none !important; */
@@ -453,8 +543,14 @@ export default {
     text-align: left;
     margin-bottom: 25px;
   }
-  .thumbs_swiper .swiper-wrapper {
-    display: none;
+  .thumb_swiper_slide {
+    max-height: 160px;
+    max-width: 330px;
+    align-items: center;
+    padding: 20px 25px;
+  }
+  .thumbs__bottom {
+    margin-left: 15%;
   }
 }
 </style>

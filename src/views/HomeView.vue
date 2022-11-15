@@ -2,13 +2,20 @@
   <div class="container">
     <header-component
       class="header"
+      :store="store"
+      :currentLanguage="currentLanguage"
       @setLang="(payload) => updateLanguage(payload)"
       @requestLogin="toggleLoginForm"
       @requestRegister="registerFormDisplay = !registerFormDisplay"
     ></header-component>
-    <slider-component></slider-component>
+    <slider-component
+      :store="store"
+      :currentLanguage="currentLanguage"
+    ></slider-component>
     <register-form-component
       class="register"
+      :store="store"
+      :currentLanguage="currentLanguage"
       :style="registerFormDisplay ? 'display: block' : 'display:none'"
       @regData="(payload) => apiRegisterData(payload)"
     ></register-form-component>
@@ -21,10 +28,13 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import RegisterFormComponent from '../components/RegisterFormComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import SliderComponent from '../components/SliderComponent.vue';
+import { useLanguageStore } from '@/stores/languages';
+const store = useLanguageStore();
 const registerFormDisplay = ref(true);
 // blurify start
 const scrolly = ref();
 const blur = ref('none');
+const currentLanguage = ref('en');
 const logEvent = () => {
   scrolly.value = window.top.scrollY;
   scrolly.value > 60 ? (blur.value = 'blur(7.5px)') : (blur.value = '');
@@ -40,6 +50,7 @@ const apiRegisterData = (proxyData) => {
   console.log(proxyData);
 };
 const updateLanguage = (lang) => {
+  currentLanguage.value = lang;
   console.log('selectedLang: ', lang);
 };
 const toggleLoginForm = () => {
@@ -99,4 +110,6 @@ const toggleLoginForm = () => {
     top: 340px !important
     top: 380px !important
     right: 15px !important
+  .info__btn
+    bottom: 5px !important
 </style>

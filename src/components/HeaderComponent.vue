@@ -44,15 +44,29 @@
       <div class="logo"></div>
     </div>
     <div class="container__nav">
-      <div class="nav__element">SPORTSBOOK</div>
-      <div class="nav__element">CASINO</div>
-      <div class="nav__element">LIVE&nbsp;GAMES</div>
-      <div class="nav__element">PROMOTIONS</div>
-      <div class="nav__element">VIP&nbsp;PROGRAM</div>
+      <div class="nav__element">
+        {{ store.languages[currentLanguage].interface.header.sportsbook }}
+      </div>
+      <div class="nav__element">
+        {{ store.languages[currentLanguage].interface.header.casino }}
+      </div>
+      <div class="nav__element">
+        {{ store.languages[currentLanguage].interface.header.live_games }}
+      </div>
+      <div class="nav__element">
+        {{ store.languages[currentLanguage].interface.header.promotions }}
+      </div>
+      <div class="nav__element">
+        {{ store.languages[currentLanguage].interface.header.vip_program }}
+      </div>
     </div>
     <div class="container__btn">
-      <div @click="requestLogin" class="btn btn__login">SIGN&nbsp;IN</div>
-      <div @click="requestRegister" class="btn btn__register">SIGN&nbsp;UP</div>
+      <div @click="requestLogin" class="btn btn__login">
+        {{ store.languages[currentLanguage].interface.header.sign_in }}
+      </div>
+      <div @click="requestRegister" class="btn btn__register">
+        {{ store.languages[currentLanguage].interface.header.sign_up }}
+      </div>
     </div>
     <div
       :style="selectorOpen ? '--rotate: -135deg' : '--rotate: 45deg'"
@@ -89,8 +103,8 @@ import EN_svg from '/src/assets/header/EN.svg';
 import AU_svg from '/src/assets/header/AU.svg';
 import NZ_svg from '/src/assets/header/NZ.svg';
 import DE_svg from '/src/assets/header/DE.svg';
-import FR_CA_svg from '/src/assets/header/FR_CA.svg';
 export default {
+  props: ['store', 'currentLanguage'],
   setup(props, { emit }) {
     const selectorOpen = ref(false);
     const selectedLang = ref('EN');
@@ -101,11 +115,15 @@ export default {
       AU: AU_svg,
       NZ: NZ_svg,
       DE: DE_svg,
-      FR_CA: FR_CA_svg,
     };
+    // logger
+    const logger = (msg) => {
+      console.log(msg);
+    };
+    //
     const setLanguage = (id) => {
       selectedLang.value = id;
-      emit('setLang', selectedLang.value);
+      emit('setLang', selectedLang.value.toLowerCase());
     };
     const requestLogin = () => {
       emit('requestLogin');
@@ -121,10 +139,12 @@ export default {
       avLang,
       selectedLang,
       mobileMenuOpen,
+      props,
       setLanguage,
       requestLogin,
       requestRegister,
       requestRedirect,
+      logger,
     };
   },
 };
@@ -255,6 +275,7 @@ $rotate: 45deg
       line-height: 22px
       letter-spacing: 0.01em
       color: #B9C6D6
+      text-transform: uppercase
       cursor: pointer
       &:hover
         color: #F1F1F1
@@ -271,13 +292,14 @@ $rotate: 45deg
     flex-direction: row
     gap: 15px
     .btn
-      width: 140px
+      min-width: 160px
       height: 50px
       border-radius: 14px
       display: flex
       justify-content: center
       align-items: center
       cursor: pointer
+      text-transform: uppercase
       // prevent selection start
       user-select: none
       -webkit-user-select: none

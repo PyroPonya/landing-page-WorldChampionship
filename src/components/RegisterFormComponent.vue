@@ -1,13 +1,17 @@
 <template>
   <div class="form">
     <div class="content">
-      <div class="form__title">Welcome</div>
+      <div class="form__title">
+        {{ store.languages[currentLanguage].interface.register.welcome }}
+      </div>
       <div :class="errorMail ? 'form__error-mail' : ''" class="mail-container">
         <input
           v-model="dataBlob.mail"
           :class="errorMail ? 'form__input-error' : ''"
           class="form__mail form__input"
-          placeholder="E-mail"
+          :placeholder="
+            store.languages[currentLanguage].interface.register.e_mail
+          "
         />
       </div>
       <div
@@ -76,10 +80,14 @@
           @click="dataBlob.termsChecked = !dataBlob.termsChecked"
         ></div>
         <div class="terms__text">
-          I am 18 years old and I accept the
-          <a class="link">Privacy Policy</a>
-          and
-          <a class="link link__terms">Terms and Conditions</a>
+          {{ store.languages[currentLanguage].interface.register.terms[0] }}
+          <a class="link">{{
+            store.languages[currentLanguage].interface.register.terms[1]
+          }}</a>
+          {{ store.languages[currentLanguage].interface.register.terms[2] }}
+          <a class="link link__terms">{{
+            store.languages[currentLanguage].interface.register.terms[3]
+          }}</a>
         </div>
       </div>
       <div class="form__text promos">
@@ -88,11 +96,15 @@
           :class="dataBlob.promosChecked ? 'checkbox-checked' : ''"
           @click="dataBlob.promosChecked = !dataBlob.promosChecked"
         ></div>
-        <div class="terms__text">Recive promos</div>
+        <div class="terms__text">
+          {{ store.languages[currentLanguage].interface.register.promos }}
+        </div>
       </div>
       <div @click="pushData" class="btn-container">
         <div class="form__btn">
-          <div class="btn__text">SIGN&nbsp;UP</div>
+          <div class="btn__text">
+            {{ store.languages[currentLanguage].interface.register.sign_up }}
+          </div>
         </div>
       </div>
       <!-- <div v-else class="btn-container">
@@ -101,8 +113,12 @@
         </div>
       </div> -->
       <div class="form__login">
-        <div class="login__title">Already have an account?</div>
-        <div class="login__link link">Sign&nbsp;In</div>
+        <div class="login__title">
+          {{ store.languages[currentLanguage].interface.register.already }}
+        </div>
+        <div class="login__link link">
+          {{ store.languages[currentLanguage].interface.register.sign_in }}
+        </div>
       </div>
     </div>
     <div class="form__partners">
@@ -114,6 +130,7 @@
 <script>
 import { ref } from 'vue';
 export default {
+  props: ['store', 'currentLanguage'],
   setup(props, { emit }) {
     const termsChecked = ref(false);
     const promosChecked = ref(false);
@@ -430,6 +447,7 @@ export default {
       displayPassword,
       countryList,
       formIsValid,
+      props,
       validateData,
       pushData,
     };
@@ -569,6 +587,7 @@ export default {
     color: #FFFFFF
     &::placeholder
       color: #657083
+      text-transform: capitalize
     &-select
       position: relative
       transition: all 3s ease-in-out
@@ -685,6 +704,7 @@ export default {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25)
     border-radius: 12px
     cursor: pointer
+    text-transform: uppercase
     &-error
       display: flex
       flex-direction: row
@@ -735,6 +755,7 @@ export default {
       font-size: 14px
       line-height: 17px
       text-decoration: underline
+      text-transform: capitalize
   &__partners
     display: flex
     flex-direction: row
