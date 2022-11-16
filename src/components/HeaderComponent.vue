@@ -426,7 +426,7 @@ $rotate: 45deg
     display: none !important
   .container__nav-mobile
     display: flex !important
-@media (max-width: 415px)
+@media (max-width: 440px)
   .container__header
     flex-wrap: nowrap
   .container__logo

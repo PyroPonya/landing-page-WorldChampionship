@@ -819,7 +819,7 @@ export default {
         width: 38px
         background: center / contain no-repeat url("/src/assets/form/iDebit.svg")
 
-@media (max-width: 415px)
+@media (max-width: 440px)
   .form
     display: flex !important
     flex-direction: column

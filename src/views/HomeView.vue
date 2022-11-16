@@ -35,7 +35,7 @@ import RegisterFormComponent from '../components/RegisterFormComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import SliderComponent from '../components/SliderComponent.vue';
 const store = useLanguageStore();
-const isMobile = window.innerWidth <= 415 ? true : false;
+const isMobile = window.innerWidth <= 440 ? true : false;
 const registerFormDisplay = ref(true);
 // blurify start
 const scrolly = ref();
@@ -45,12 +45,27 @@ const logEvent = () => {
   scrolly.value = window.top.scrollY;
   scrolly.value > 60 ? (blur.value = 'blur(7.5px)') : (blur.value = '');
 };
+// form background conditions start
 const checkScreen = () => {
-  window.innerWidth <= 415 ? store.useForm() : '';
+  window.innerWidth <= 440 ? store.useForm() : '';
 };
+//  form background conditions end
+
+// autoshow form for mobiles start
+function useTimeout(duration = 2000) {
+  setTimeout(() => {
+    if (store.showForm !== true) {
+      store.useForm();
+    } else {
+      return null;
+    }
+  }, duration);
+}
+// autoshow form for mobiles end
 onMounted(() => {
   document.addEventListener('scroll', (e) => logEvent(e));
   checkScreen();
+  window.innerWidth <= 440 ? useTimeout(8000) : '';
 });
 onUnmounted(() => {
   document.removeEventListener('scroll', logEvent());
@@ -125,14 +140,14 @@ const toggleLoginForm = () => {
   .register
     right: 20px !important
 
-@media (max-width: 415px)
+@media (max-width: 440px)
   .header
     margin: 0px !important
     background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%)
   .register
     // top: 380px !important
     // right: 15px !important
-    top: 15% !important
+    bottom: 20% !important
     // left: 10% !important
     right: auto !important
     position: fixed !important

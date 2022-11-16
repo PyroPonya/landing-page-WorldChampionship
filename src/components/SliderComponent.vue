@@ -227,9 +227,11 @@ export default {
   setup(props, { emit }) {
     const thumbsSwiper = ref(null);
     const activeControl = ref('0');
+    // thumbs direction start
     const thumbsDirection = computed(() => {
-      return window.innerWidth <= 415 ? 'vertical' : 'horizontal';
+      return window.innerWidth <= 440 ? 'vertical' : 'horizontal';
     });
+    // thumbs direction end
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     };
@@ -515,7 +517,7 @@ export default {
     background-image: url('/src/assets/slider/slide_3_mobile.jpg');
   }
 }
-@media (max-width: 415px) {
+@media (max-width: 440px) {
   .swiper {
     /* height: 100%; */
     height: 1280px;
