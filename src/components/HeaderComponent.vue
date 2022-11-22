@@ -43,7 +43,10 @@
           </div>
         </div>
       </div>
-      <div @click="store.useForm()" class="logo"></div>
+      <div
+        @click.stop="requestRedirect(store.links.sportsbook)"
+        class="logo"
+      ></div>
     </div>
     <div class="container__nav">
       <div
