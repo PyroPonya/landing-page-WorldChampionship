@@ -148,7 +148,7 @@ const toggleLoginForm = () => {
     margin: 0px !important
     background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%)
   .register
-    top: 400px !important
+    top: 450px !important
     // right: 15px !important
     bottom: unset !important
     // left: 10% !important

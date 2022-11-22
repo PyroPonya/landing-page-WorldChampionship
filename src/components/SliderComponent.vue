@@ -521,7 +521,7 @@ export default {
   .swiper {
     /* height: 100%; */
     /* height: 1280px; */
-    height: 1650px;
+    height: 1680px;
   }
   .slider__one {
     background-position: top;

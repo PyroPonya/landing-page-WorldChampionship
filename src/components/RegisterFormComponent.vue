@@ -834,14 +834,17 @@ export default {
     display: flex !important
     flex-direction: column
     justify-content: center
-    align-items: center
+    // align-items: center
     max-width: 330px
     padding: 20px 40px
     .content
       padding: 0px 0px 15px 0px
       .mail__container, .pass__container, .form__input, .form__btn, .btn-container
-        min-width: 100%
+        // min-width: 100%
         max-width: 250px
+      .btn-container, .form__btn
+        max-width: 250px
+        min-width: 250px
       .form__password-toggle
         right: 10%
       .form__login
