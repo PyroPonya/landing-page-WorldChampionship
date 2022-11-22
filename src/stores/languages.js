@@ -4,6 +4,14 @@ import { defineStore } from 'pinia';
 export const useLanguageStore = defineStore('languages', () => {
   const count = ref(0);
   const showForm = ref(true);
+  const dataBlob = ref({
+    mail: '',
+    password: '',
+    currency: '',
+    country: '',
+    termsChecked: false,
+    promosChecked: false,
+  });
   const links = {
     sportsbook: 'https://sports.13bets.io/en',
     casino: 'https://www.13bets.io',
@@ -367,6 +375,34 @@ export const useLanguageStore = defineStore('languages', () => {
   const useForm = () => {
     showForm.value = !showForm.value;
   };
+  const checkData = (key, val) => {
+    dataBlob.value[key] = val;
+  };
+  const updateValue = (key, val) => {
+    dataBlob.value[key] = val;
+  };
+  const resetData = () => {
+    dataBlob.value = {
+      mail: '',
+      password: '',
+      currency: '',
+      country: '',
+      termsChecked: false,
+      promosChecked: false,
+    };
+  };
 
-  return { count, showForm, links, languages, doubleCount, increment, useForm };
+  return {
+    count,
+    showForm,
+    dataBlob,
+    links,
+    languages,
+    doubleCount,
+    increment,
+    useForm,
+    checkData,
+    resetData,
+    updateValue,
+  };
 });

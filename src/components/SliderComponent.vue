@@ -520,7 +520,8 @@ export default {
 @media (max-width: 440px) {
   .swiper {
     /* height: 100%; */
-    height: 1280px;
+    /* height: 1280px; */
+    height: 1650px;
   }
   .slider__one {
     background-position: top;
@@ -549,6 +550,7 @@ export default {
     max-width: 320px;
   }
   .thumbs_slide_container {
+    /* padding-top: 120px; */
     max-height: 175px;
   }
   .content__title {

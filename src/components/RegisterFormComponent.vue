@@ -6,7 +6,8 @@
       </div>
       <div :class="errorMail ? 'form__error-mail' : ''" class="mail-container">
         <input
-          v-model="dataBlob.mail"
+          v-model="email"
+          @change="store.updateValue('mail', email)"
           :class="errorMail ? 'form__input-error' : ''"
           class="form__mail form__input"
           :placeholder="
@@ -19,7 +20,8 @@
         class="pass-container"
       >
         <input
-          v-model="dataBlob.password"
+          v-model="password"
+          @change="store.updateValue('password', password)"
           :type="
             displayPassword
               ? (passwordFieldType = 'text')
@@ -41,13 +43,13 @@
         :style="showCurrency ? '--rotate: 45deg' : '--rotate: -135deg'"
         class="form__currency form__input form__input-select"
       >
-        {{ !dataBlob.currency ? 'Currency' : dataBlob.currency }}
+        {{ !store.dataBlob.currency ? 'Currency' : store.dataBlob.currency }}
         <div v-if="showCurrency" class="form__currency-dropdown dropdown">
           <div
             v-for="(el, id) in currencyArr"
             :key="id"
             class="dropdown__element"
-            @click="dataBlob.currency = el"
+            @click="store.checkData('currency', el)"
           >
             {{ el }}
           </div>
@@ -61,13 +63,13 @@
         :style="showCountry ? '--rotate: 45deg' : '--rotate: -135deg'"
         class="form__country form__input form__input-select"
       >
-        {{ !dataBlob.country ? 'Country' : dataBlob.country }}
+        {{ !store.dataBlob.country ? 'Country' : store.dataBlob.country }}
         <div v-if="showCountry" class="form__country-dropdown dropdown">
           <div
             v-for="(el, id) in countryList"
             :key="id"
             class="dropdown__element"
-            @click="dataBlob.country = el"
+            @click="store.checkData('country', el)"
           >
             {{ el }}
           </div>
@@ -76,8 +78,8 @@
       <div class="form__text conditions">
         <div
           class="checkbox"
-          :class="dataBlob.termsChecked ? 'checkbox-checked' : ''"
-          @click="dataBlob.termsChecked = !dataBlob.termsChecked"
+          :class="store.dataBlob.termsChecked ? 'checkbox-checked' : ''"
+          @click="store.checkData('termsChecked', !store.dataBlob.termsChecked)"
         ></div>
         <div class="terms__text">
           {{ store.languages[currentLanguage].interface.register.terms[0] }}
@@ -101,8 +103,10 @@
       <div class="form__text promos">
         <div
           class="checkbox"
-          :class="dataBlob.promosChecked ? 'checkbox-checked' : ''"
-          @click="dataBlob.promosChecked = !dataBlob.promosChecked"
+          :class="store.dataBlob.promosChecked ? 'checkbox-checked' : ''"
+          @click="
+            store.checkData('promosChecked', !store.dataBlob.promosChecked)
+          "
         ></div>
         <div class="terms__text">
           {{ store.languages[currentLanguage].interface.register.promos }}
@@ -146,6 +150,8 @@ export default {
     const displayPassword = ref(true);
     const showCountry = ref(false);
     const formIsValid = ref(false);
+    const password = ref('');
+    const email = ref('');
     const currencyArr = [
       'EUR',
       'NZD',
@@ -384,7 +390,7 @@ export default {
     const validateData = () => {
       let errorCounter = 0;
       // mail
-      if (!dataBlob.value.mail.slice('').includes('@')) {
+      if (!props.store.dataBlob.mail.slice('').includes('@')) {
         errorMail.value = true;
         // return 'error';
         errorCounter++;
@@ -392,17 +398,17 @@ export default {
         errorMail.value = false;
       }
       // pass
-      if (dataBlob.value.password.length < 8) {
+      if (props.store.dataBlob.password.length < 8) {
         errorPassword.value = true;
         // return 'error';
         errorCounter++;
       } else {
         errorPassword.value = false;
       }
-      if (!dataBlob.value.currency || !dataBlob.value.country) {
+      if (!props.store.dataBlob.currency || !props.store.dataBlob.country) {
         errorCounter++;
       }
-      if (!dataBlob.value.termsChecked) {
+      if (!props.store.dataBlob.termsChecked) {
         errorCounter++;
       }
       if (errorCounter > 0) {
@@ -419,15 +425,11 @@ export default {
     // emits registration data
     const pushData = () => {
       if (validateData()) {
-        emit('regData', dataBlob.value);
-        dataBlob.value = {
-          mail: '',
-          password: '',
-          currency: '',
-          country: '',
-          termsChecked: false,
-          promosChecked: false,
-        };
+        emit('regData', props.store.dataBlob);
+        // emit('regData', dataBlob.value);
+        props.store.resetData();
+        email.value = '';
+        password.value = '';
       } else {
         return false;
       }
@@ -456,6 +458,8 @@ export default {
       displayPassword,
       countryList,
       formIsValid,
+      password,
+      email,
       props,
       validateData,
       pushData,
@@ -563,6 +567,11 @@ export default {
   .content
     padding: 25px
     padding-top: 0
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    justify-content: center
+    // width: 100%
   &__title
     display: flex
     justify-content: flex-start
@@ -694,6 +703,7 @@ export default {
   .btn-container
     background-color: #13171E
     border-radius: 12px
+    margin: 14px 0 7px 0
     // prevent selection start
     user-select: none
     -webkit-user-select: none
@@ -708,7 +718,6 @@ export default {
     align-items: center
     min-width: 300px
     min-height: 50px
-    margin: 14px 0 7px 0
     gap: 10px
     background: linear-gradient(256.33deg, #FFB639 18.19%, #E49100 80.14%)
     color: #13171E
@@ -751,6 +760,7 @@ export default {
     display: flex
     gap: 9px
     justify-content: center
+    white-space: nowrap
     .login__title
       font-family: 'Montserrat'
       font-style: normal
@@ -830,8 +840,8 @@ export default {
     .content
       padding: 0px 0px 15px 0px
       .mail__container, .pass__container, .form__input, .form__btn, .btn-container
-        min-width: 20px
-        max-width: 240px
+        min-width: 100%
+        max-width: 250px
       .form__password-toggle
         right: 10%
       .form__login

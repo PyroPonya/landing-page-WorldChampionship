@@ -15,15 +15,18 @@
       @requestRedirect="(payload) => redirectTo(payload)"
     ></slider-component>
     <register-form-component
-      v-if="store.showForm"
       class="register"
       :store="store"
       :currentLanguage="currentLanguage"
-      :style="registerFormDisplay ? 'display: block' : 'display:none'"
+      :style="registerFormDisplay ? 'display: flex' : 'display:none'"
       @requestRedirect="(payload) => redirectTo(payload)"
       @regData="(payload) => apiRegisterData(payload)"
     ></register-form-component>
-    <div v-if="isMobile && store.showForm" class="bg__blur"></div>
+    <!-- <div
+      @click="store.useForm()"
+      v-if="isMobile && store.showForm"
+      class="bg__blur"
+    ></div> -->
     <div @click="redirectTo(store.links.support)" class="info__btn"></div>
   </div>
 </template>
@@ -35,7 +38,7 @@ import RegisterFormComponent from '../components/RegisterFormComponent.vue';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import SliderComponent from '../components/SliderComponent.vue';
 const store = useLanguageStore();
-const isMobile = window.innerWidth <= 440 ? true : false;
+// const isMobile = window.innerWidth <= 440 ? true : false;
 const registerFormDisplay = ref(true);
 // blurify start
 const scrolly = ref();
@@ -65,7 +68,7 @@ function useTimeout(duration = 2000) {
 onMounted(() => {
   document.addEventListener('scroll', (e) => logEvent(e));
   checkScreen();
-  window.innerWidth <= 440 ? useTimeout(8000) : '';
+  window.innerWidth <= 440 ? useTimeout(5000) : '';
 });
 onUnmounted(() => {
   document.removeEventListener('scroll', logEvent());
@@ -145,12 +148,12 @@ const toggleLoginForm = () => {
     margin: 0px !important
     background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%)
   .register
-    // top: 380px !important
+    top: 400px !important
     // right: 15px !important
-    bottom: 20% !important
+    bottom: unset !important
     // left: 10% !important
     right: auto !important
-    position: fixed !important
+    // position: fixed !important
 
   .info__btn
     bottom: 5px !important
